@@ -1,24 +1,21 @@
 import React from "react";
-import "./App.css";
+import MRouther from "./router/MRouter";
+import NMRouther from "./router/NMRouter";
+import { useAuthData } from "./store/storeFuncs";
+
+const getRouter = (authenticated: boolean) => {
+  if (authenticated) {
+    return <MRouther />;
+  } else {
+    return <NMRouther />;
+  }
+};
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { authenticated } = useAuthData();
+  const router = getRouter(authenticated);
+
+  return <div className="App">{router}</div>;
 };
 
 export default App;
