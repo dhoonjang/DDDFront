@@ -3,10 +3,12 @@ import { useAuthAction } from "../store/storeFuncs";
 import { makeToken } from "../tool/token";
 
 const NMRouther: React.FC = () => {
+  console.log("NM Router Render!!!");
   const { setStoreToken, authorized } = useAuthAction();
+  authorized();
 
   const login = () => {
-    setStoreToken(makeToken("Bearer", "abcdefg", "hijklmnop"));
+    setStoreToken(makeToken("abcdefg", "hijklmnop"));
     authorized();
   };
 

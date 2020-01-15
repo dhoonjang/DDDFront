@@ -4,7 +4,7 @@ import { getLocalToken, setLocalToken, Ttoken } from "../tool/token";
 
 class AuthStore {
   @observable
-  public token: Ttoken | null = getLocalToken("Bearer");
+  public token: Ttoken | null = getLocalToken();
 
   @observable
   public authenticated: boolean = false;

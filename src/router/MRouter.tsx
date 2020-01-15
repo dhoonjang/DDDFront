@@ -2,6 +2,7 @@ import React from "react";
 import { useAuthAction } from "../store/storeFuncs";
 
 const MRouther: React.FC = () => {
+  console.log("M Router Render!!!");
   const { logOut } = useAuthAction();
 
   const logout = () => {
