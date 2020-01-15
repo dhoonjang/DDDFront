@@ -3,11 +3,23 @@ import { clearLocal } from "../tool/controlLocal";
 import { getLocalToken, setLocalToken, Ttoken } from "../tool/token";
 
 class AuthStore {
+  public static getInstance(): AuthStore {
+    if (!AuthStore.instance) {
+      AuthStore.instance = new AuthStore();
+      AuthStore.instance.authorized();
+    }
+    return AuthStore.instance;
+  }
+
+  private static instance: AuthStore;
+
   @observable
   public token: Ttoken | null = getLocalToken();
 
   @observable
   public authenticated: boolean = false;
+
+  private constructor() {}
 
   @action
   public setStoreToken(token: Ttoken): void {

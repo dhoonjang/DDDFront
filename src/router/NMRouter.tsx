@@ -5,7 +5,6 @@ import { makeToken } from "../tool/token";
 const NMRouther: React.FC = () => {
   console.log("NM Router Render!!!");
   const { setStoreToken, authorized } = useAuthAction();
-  authorized();
 
   const login = () => {
     setStoreToken(makeToken("abcdefg", "hijklmnop"));
@@ -13,7 +12,7 @@ const NMRouther: React.FC = () => {
   };
 
   return (
-    <div className="Member">
+    <div className="NonMember">
       nonmember router
       <button onClick={login}>Log In</button>
     </div>

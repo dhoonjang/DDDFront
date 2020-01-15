@@ -3,8 +3,8 @@ import React from "react";
 import AuthStore from "./authStore";
 import UserStore from "./userStore";
 
-const auth = new AuthStore();
-const user = new UserStore();
+const auth = AuthStore.getInstance();
+const user = UserStore.getInstance();
 
 const StoreProvider: React.FC = ({ children }) => {
   return (

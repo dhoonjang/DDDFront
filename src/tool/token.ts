@@ -3,11 +3,16 @@ import { clearLocal, getLocalItem, setLocalItem } from "./controlLocal";
 export const defaultTokenType = "Bearer";
 
 export type Ttoken = {
-  type: string;
-  accessToken: string;
-  refreshToken: string;
-  expiresIn: boolean;
+  readonly type: string;
+  readonly accessToken: string;
+  readonly refreshToken: string;
+  readonly expiresIn: boolean;
 };
+
+export function setLocalToken(token: Ttoken): void {
+  setLocalItem("access_token", token.accessToken);
+  setLocalItem("refresh_token", token.refreshToken);
+}
 
 export function getLocalToken(): Ttoken | null {
   const accessToken = getLocalItem("access_token");
@@ -19,11 +24,6 @@ export function getLocalToken(): Ttoken | null {
   }
 
   return makeToken(accessToken, refreshToken);
-}
-
-export function setLocalToken(token: Ttoken): void {
-  setLocalItem("access_token", token.accessToken);
-  setLocalItem("refresh_token", token.refreshToken);
 }
 
 export function makeToken(accessToken: string, refreshToken: string): Ttoken {

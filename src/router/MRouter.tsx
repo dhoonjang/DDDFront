@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useAuthAction } from "../store/storeFuncs";
 
 const MRouther: React.FC = () => {
@@ -8,11 +9,15 @@ const MRouther: React.FC = () => {
   const logout = () => {
     logOut();
   };
+
   return (
-    <div className="Member">
-      member router
-      <button onClick={logout}>Log Out</button>
-    </div>
+    <Router>
+      <div className="Member">
+        member router
+        <button onClick={logout}>Log Out</button>
+        <Link to="/main">asf</Link>
+      </div>
+    </Router>
   );
 };
 
