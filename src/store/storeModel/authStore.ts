@@ -5,11 +5,6 @@ import {
   setLocalToken,
   Ttoken
 } from "../../control/controlToken";
-import {
-  ReloadUrlMove,
-  RouteUrlMove,
-  Thistory
-} from "../../control/controlUrl";
 
 class AuthStore {
   public static getInstance(): AuthStore {
@@ -31,37 +26,29 @@ class AuthStore {
   private constructor() {}
 
   @action
-  public setStoreToken(token: Ttoken): void {
+  public setToken(token: Ttoken): void {
     this.token = token;
+    setLocalToken(this.token);
   }
 
   @action
-  public authorized(token?: Ttoken): void {
-    if (token) {
-      this.setStoreToken(token);
-    }
-
+  public authorized(): string {
     if (this.token) {
       if (this.token.expiresIn) {
-        this.logOut();
+        return "ExpiredToken";
       } else {
         this.authenticated = true;
-        setLocalToken(this.token);
+        return "Success";
       }
     }
+    return "Fail";
   }
 
   @action
-  public logOut(history?: Thistory): void {
+  public clearStore(): void {
     clearLocal();
     this.token = null;
     this.authenticated = false;
-
-    if (history) {
-      RouteUrlMove(history, "/");
-    } else {
-      ReloadUrlMove("/");
-    }
   }
 }
 

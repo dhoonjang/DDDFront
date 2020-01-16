@@ -1,5 +1,6 @@
 export type Thistory = {
   push: (path: string) => void;
+  replace: (path: string) => void;
 };
 
 export function ReloadUrlMove(path: string): void {

@@ -5,19 +5,23 @@ import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 
 const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
-  const { authorized } = useAuthAction();
+  const { authorized, setToken } = useAuthAction();
 
-  const login = () => {
+  const logInFunc = () => {
     const newToken = makeToken("abcdefg", "hijklmnop");
-    authorized(newToken);
-    RouteUrlMove(history, "/");
+    setToken(newToken);
+    if (authorized() === "Success") {
+      RouteUrlMove(history, "/");
+    } else {
+      RouteUrlMove(history, "/join");
+    }
   };
 
   return (
     <div className="LoginPage">
       <h2>LoginPage</h2>
       <br />
-      <button onClick={login}>Log In</button>
+      <button onClick={logInFunc}>Log In</button>
     </div>
   );
 };

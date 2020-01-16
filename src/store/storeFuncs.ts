@@ -21,9 +21,9 @@ export function useAuthData() {
 export function useAuthAction() {
   const { auth } = useStores();
   return {
-    setStoreToken: (token: Ttoken) => auth.setStoreToken(token),
-    authorized: (token?: Ttoken) => auth.authorized(token),
-    logOut: () => auth.logOut()
+    setToken: (token: Ttoken) => auth.setToken(token),
+    authorized: () => auth.authorized(),
+    clearStore: () => auth.clearStore()
   };
 }
 
