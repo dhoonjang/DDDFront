@@ -3,8 +3,14 @@ import { clearLocal } from "../../control/controlLocal";
 import {
   getLocalToken,
   setLocalToken,
-  Ttoken
+  TToken
 } from "../../control/controlToken";
+
+export enum EAuthReturn {
+  expired = "ExpiredToken",
+  fail = "Fail",
+  success = "Success"
+}
 
 class AuthStore {
   public static getInstance(): AuthStore {
@@ -18,7 +24,7 @@ class AuthStore {
   private static instance: AuthStore;
 
   @observable
-  public token: Ttoken | null = getLocalToken();
+  public token: TToken | null = getLocalToken();
 
   @observable
   public authenticated: boolean = false;
@@ -26,22 +32,22 @@ class AuthStore {
   private constructor() {}
 
   @action
-  public setToken(token: Ttoken): void {
+  public setToken(token: TToken): void {
     this.token = token;
     setLocalToken(this.token);
   }
 
   @action
-  public authorized(): string {
+  public authorized(): EAuthReturn {
     if (this.token) {
-      if (this.token.expiresIn) {
-        return "ExpiredToken";
+      if (this.token.isExpired) {
+        return EAuthReturn.expired;
       } else {
         this.authenticated = true;
-        return "Success";
+        return EAuthReturn.success;
       }
     }
-    return "Fail";
+    return EAuthReturn.fail;
   }
 
   @action

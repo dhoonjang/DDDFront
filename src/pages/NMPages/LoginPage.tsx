@@ -3,6 +3,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { makeToken } from "../../control/controlToken";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
+import { EAuthReturn } from "../../store/storeModel/authStore";
 
 const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
   const { authorized, setToken } = useAuthAction();
@@ -10,9 +11,12 @@ const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
   const logInFunc = () => {
     const newToken = makeToken("abcdefg", "hijklmnop");
     setToken(newToken);
-    if (authorized() === "Success") {
+
+    const authReturn = authorized();
+
+    if (authReturn === EAuthReturn.success) {
       RouteUrlMove(history, "/");
-    } else {
+    } else if (authReturn === EAuthReturn.fail) {
       RouteUrlMove(history, "/join");
     }
   };

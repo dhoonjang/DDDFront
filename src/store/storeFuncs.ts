@@ -1,6 +1,6 @@
 import { MobXProviderContext, useObserver } from "mobx-react";
 import { useContext } from "react";
-import { Ttoken } from "../control/controlToken";
+import { TToken } from "../control/controlToken";
 
 function useStores() {
   const store = useContext(MobXProviderContext);
@@ -21,7 +21,7 @@ export function useAuthData() {
 export function useAuthAction() {
   const { auth } = useStores();
   return {
-    setToken: (token: Ttoken) => auth.setToken(token),
+    setToken: (token: TToken) => auth.setToken(token),
     authorized: () => auth.authorized(),
     clearStore: () => auth.clearStore()
   };
