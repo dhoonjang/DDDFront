@@ -1,22 +1,18 @@
 import React from "react";
-import { useAuthAction } from "../store/storeFuncs";
-import { makeToken } from "../tool/token";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { FirstPage, JoinPage, LoginPage } from "../pages";
 
-const NMRouther: React.FC = () => {
+const NMRouter: React.FC = () => {
   console.log("NM Router Render!!!");
-  const { setStoreToken, authorized } = useAuthAction();
-
-  const login = () => {
-    setStoreToken(makeToken("abcdefg", "hijklmnop"));
-    authorized();
-  };
 
   return (
-    <div className="NonMember">
-      nonmember router
-      <button onClick={login}>Log In</button>
-    </div>
+    <Router>
+      <h1>NonMember Router</h1>
+      <Route exact={true} path={"/"} component={FirstPage} />
+      <Route path={"/login"} component={LoginPage} />
+      <Route path={"/join"} component={JoinPage} />
+    </Router>
   );
 };
 
-export default NMRouther;
+export default NMRouter;

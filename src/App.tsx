@@ -1,13 +1,13 @@
 import React from "react";
-import MRouther from "./router/MRouter";
-import NMRouther from "./router/NMRouter";
+import MRouter from "./router/MRouter";
+import NMRouter from "./router/NMRouter";
 import { useAuthData } from "./store/storeFuncs";
 
 const getRouter = (authenticated: boolean) => {
   if (authenticated) {
-    return <MRouther />;
+    return <MRouter />;
   } else {
-    return <NMRouther />;
+    return <NMRouter />;
   }
 };
 

@@ -1,7 +1,7 @@
 import { Provider } from "mobx-react";
 import React from "react";
-import AuthStore from "./authStore";
-import UserStore from "./userStore";
+import AuthStore from "./storeModel/authStore";
+import UserStore from "./storeModel/userStore";
 
 const auth = AuthStore.getInstance();
 const user = UserStore.getInstance();

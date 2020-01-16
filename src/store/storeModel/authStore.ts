@@ -1,6 +1,15 @@
 import { action, observable } from "mobx";
-import { clearLocal } from "../tool/controlLocal";
-import { getLocalToken, setLocalToken, Ttoken } from "../tool/token";
+import { clearLocal } from "../../control/controlLocal";
+import {
+  getLocalToken,
+  setLocalToken,
+  Ttoken
+} from "../../control/controlToken";
+import {
+  ReloadUrlMove,
+  RouteUrlMove,
+  Thistory
+} from "../../control/controlUrl";
 
 class AuthStore {
   public static getInstance(): AuthStore {
@@ -27,7 +36,11 @@ class AuthStore {
   }
 
   @action
-  public authorized(): void {
+  public authorized(token?: Ttoken): void {
+    if (token) {
+      this.setStoreToken(token);
+    }
+
     if (this.token) {
       if (this.token.expiresIn) {
         this.logOut();
@@ -39,10 +52,16 @@ class AuthStore {
   }
 
   @action
-  public logOut(): void {
+  public logOut(history?: Thistory): void {
     clearLocal();
     this.token = null;
     this.authenticated = false;
+
+    if (history) {
+      RouteUrlMove(history, "/");
+    } else {
+      ReloadUrlMove("/");
+    }
   }
 }
 
