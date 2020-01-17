@@ -1,14 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 
 const MainPage: React.FC = () => {
   const { clearStore } = useAuthAction();
+  const history = useHistory();
 
   const logOutFunc = () => {
     clearStore();
-    RouteUrlMove("/");
+    RouteUrlMove(history, "/");
   };
 
   return (

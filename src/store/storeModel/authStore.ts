@@ -1,7 +1,7 @@
 import { action, computed, observable } from "mobx";
-import { authApi, EApiReturn } from "../../api/authApi";
 import { clearLocal } from "../../control/controlLocal";
 import {
+  ETokenStatus,
   getLocalToken,
   IToken,
   setLocalToken
@@ -27,7 +27,7 @@ class AuthStore {
   private constructor() {}
 
   @computed
-  public getToken(): IToken | null {
+  get storeToken(): IToken | null {
     return this.token;
   }
 
@@ -38,13 +38,15 @@ class AuthStore {
   }
 
   @action
-  public async authorized() {
+  public async authorized(): Promise<boolean> {
     if (this.token) {
-      const authReturn = await authApi(this.token);
-      if (authReturn === EApiReturn.success) {
-        this.authenticated = true;
+      if (this.token.status === ETokenStatus.expired) {
+        return false;
       }
+      this.authenticated = true;
+      return true;
     }
+    return false;
   }
 
   @action

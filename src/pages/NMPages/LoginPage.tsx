@@ -1,21 +1,22 @@
 import React from "react";
-import { EApiReturn } from "../../api/authApi";
+import { useHistory } from "react-router-dom";
 import { ETokenStatus, makeToken } from "../../control/controlToken";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 
 const LoginPage: React.FC = () => {
   const { authorized, setToken } = useAuthAction();
+  const history = useHistory();
 
-  const logInFunc = () => {
+  const logInFunc = async () => {
     const newToken = makeToken("abcdefg", "hijklmnop", ETokenStatus.new);
     setToken(newToken);
-    const authReturn: EApiReturn = authorized();
+    const authReturn: boolean = authorized();
 
-    if (authReturn === EApiReturn.success) {
-      RouteUrlMove("/");
-    } else if (authReturn === EApiReturn.fail) {
-      RouteUrlMove("/join");
+    if (authReturn) {
+      RouteUrlMove(history, "/");
+    } else {
+      RouteUrlMove(history, "/join");
     }
   };
 
