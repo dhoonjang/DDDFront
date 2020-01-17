@@ -1,7 +1,7 @@
 import { errorHandler } from "../control/controlError";
 import { getRightToken, IToken } from "../control/controlToken";
 
-const baseUrl = "https://api.ddakdae.com/";
+const baseUrl = "https://api.ddakdae.com";
 
 export enum ERequestType {
   post = "POST",
@@ -13,7 +13,7 @@ export enum ERequestType {
 export const MapiAgent = (storeToken: IToken) => {
   const token = getRightToken(storeToken); // getRightToken(storeToken)
 
-  const post = async (url: string, body: JSON): Promise<any> => {
+  const post = async (url: string, body: string): Promise<any> => {
     let res;
     try {
       res = await fetch(baseUrl + url, {
@@ -21,7 +21,7 @@ export const MapiAgent = (storeToken: IToken) => {
         headers: {
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(body)
+        body
       });
     } catch (err) {
       return errorHandler(err);
@@ -29,10 +29,14 @@ export const MapiAgent = (storeToken: IToken) => {
     return res.json;
   };
 
-  const get = async (url: string): Promise<any> => {
+  const get = async (url: string, params?: any): Promise<any> => {
+    const madeUrl = new URL(baseUrl + url);
+    if (params) {
+      madeUrl.search = new URLSearchParams(params).toString();
+    }
     let res;
     try {
-      res = await fetch(baseUrl + url, {
+      res = await fetch(String(madeUrl), {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
@@ -48,22 +52,26 @@ export const MapiAgent = (storeToken: IToken) => {
 };
 
 export const NMapiAgent = () => {
-  const post = async (url: string, body: JSON): Promise<any> => {
+  const post = async (url: string, body: string): Promise<any> => {
     let res;
     try {
       res = await fetch(baseUrl + url, {
         method: "POST",
-        body: JSON.stringify(body)
+        body
       });
     } catch (err) {
       return errorHandler(err);
     }
     return res.json;
   };
-  const get = async (url: string): Promise<any> => {
+  const get = async (url: string, params?: any): Promise<any> => {
+    const madeUrl = new URL(baseUrl + url);
+    if (params) {
+      madeUrl.search = new URLSearchParams(params).toString();
+    }
     let res;
     try {
-      res = await fetch(baseUrl + url, {
+      res = await fetch(String(madeUrl), {
         method: "GET"
       });
     } catch (err) {

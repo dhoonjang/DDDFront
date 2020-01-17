@@ -40,7 +40,7 @@ class AuthStore {
   @action
   public async authorized(): Promise<boolean> {
     if (this.token) {
-      if (this.token.status === ETokenStatus.expired) {
+      if (this.token.status === ETokenStatus.expired || ETokenStatus.semi) {
         return false;
       }
       this.authenticated = true;

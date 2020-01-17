@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { ETokenStatus, makeToken } from "../../control/controlToken";
+import { EApiReturnStatus, loginApi } from "../../api/apiFuncs";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 
@@ -9,14 +9,17 @@ const LoginPage: React.FC = () => {
   const history = useHistory();
 
   const logInFunc = async () => {
-    const newToken = makeToken("abcdefg", "hijklmnop", ETokenStatus.new);
-    setToken(newToken);
-    const authReturn: boolean = authorized();
-
-    if (authReturn) {
-      RouteUrlMove(history, "/");
-    } else {
-      RouteUrlMove(history, "/join");
+    const res = await loginApi("temp_code");
+    if (res.status === EApiReturnStatus.success && res.token) {
+      setToken(res.token);
+      if (res.joinRequired) {
+        RouteUrlMove(history, "/join");
+        return;
+      }
+      const authReturn: boolean = authorized();
+      if (authReturn) {
+        RouteUrlMove(history, "/");
+      }
     }
   };
 

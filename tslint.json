@@ -4,6 +4,7 @@
     "interface-over-type-literal": true,
     "no-submodule-imports": false,
     "no-console": false,
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "variable-name": false
   }
 }

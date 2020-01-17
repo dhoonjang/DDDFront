@@ -3,6 +3,7 @@ import { clearLocal, getLocalItem, setLocalItem } from "./controlLocal";
 export enum ETokenStatus {
   new = "NEW",
   old = "OLD",
+  semi = "SEMI",
   expired = "EXPIRED"
 }
 export interface IToken {
