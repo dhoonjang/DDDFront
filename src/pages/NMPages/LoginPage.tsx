@@ -1,12 +1,10 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { makeToken } from "../../control/controlToken";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 import { EAuthReturn } from "../../store/storeModel/authStore";
 
 const LoginPage: React.FC = () => {
-  const history = useHistory();
   const { authorized, setToken } = useAuthAction();
 
   const logInFunc = () => {
@@ -16,9 +14,9 @@ const LoginPage: React.FC = () => {
     const authReturn: EAuthReturn = authorized();
 
     if (authReturn === EAuthReturn.success) {
-      RouteUrlMove(history, "/");
+      RouteUrlMove("/");
     } else if (authReturn === EAuthReturn.fail) {
-      RouteUrlMove(history, "/join");
+      RouteUrlMove("/join");
     }
   };
 
