@@ -1,9 +1,10 @@
 import React from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 
-const MainPage: React.FC<RouteComponentProps> = ({ history }) => {
+const MainPage: React.FC = () => {
+  const history = useHistory();
   const { clearStore } = useAuthAction();
 
   const logOutFunc = () => {

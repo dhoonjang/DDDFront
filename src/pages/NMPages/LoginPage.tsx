@@ -1,11 +1,12 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { makeToken } from "../../control/controlToken";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 import { EAuthReturn } from "../../store/storeModel/authStore";
 
-const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
+const LoginPage: React.FC = () => {
+  const history = useHistory();
   const { authorized, setToken } = useAuthAction();
 
   const logInFunc = () => {
