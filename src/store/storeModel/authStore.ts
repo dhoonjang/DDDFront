@@ -2,8 +2,8 @@ import { action, observable } from "mobx";
 import { clearLocal } from "../../control/controlLocal";
 import {
   getLocalToken,
-  setLocalToken,
-  TToken
+  IToken,
+  setLocalToken
 } from "../../control/controlToken";
 
 export enum EAuthReturn {
@@ -24,7 +24,7 @@ class AuthStore {
   private static instance: AuthStore;
 
   @observable
-  public token: TToken | null = getLocalToken();
+  public token: IToken | null = getLocalToken();
 
   @observable
   public authenticated: boolean = false;
@@ -32,7 +32,7 @@ class AuthStore {
   private constructor() {}
 
   @action
-  public setToken(token: TToken): void {
+  public setToken(token: IToken): void {
     this.token = token;
     setLocalToken(this.token);
   }

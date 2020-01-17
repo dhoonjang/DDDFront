@@ -12,7 +12,7 @@ const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
     const newToken = makeToken("abcdefg", "hijklmnop");
     setToken(newToken);
 
-    const authReturn = authorized();
+    const authReturn: EAuthReturn = authorized();
 
     if (authReturn === EAuthReturn.success) {
       RouteUrlMove(history, "/");
