@@ -1,5 +1,6 @@
 import { errorHandler } from "../control/controlError";
 import { getRightToken, IToken } from "../control/controlToken";
+import { makeGetUrl } from "../control/controlUrl";
 
 const baseUrl = "https://api.ddakdae.com";
 
@@ -30,13 +31,10 @@ export const MapiAgent = (storeToken: IToken) => {
   };
 
   const get = async (url: string, params?: any): Promise<any> => {
-    const madeUrl = new URL(baseUrl + url);
-    if (params) {
-      madeUrl.search = new URLSearchParams(params).toString();
-    }
+    const getUrl = makeGetUrl(baseUrl, url, params);
     let res;
     try {
-      res = await fetch(String(madeUrl), {
+      res = await fetch(getUrl, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
@@ -65,13 +63,10 @@ export const NMapiAgent = () => {
     return res.json;
   };
   const get = async (url: string, params?: any): Promise<any> => {
-    const madeUrl = new URL(baseUrl + url);
-    if (params) {
-      madeUrl.search = new URLSearchParams(params).toString();
-    }
+    const getUrl = makeGetUrl(baseUrl, url, params);
     let res;
     try {
-      res = await fetch(String(madeUrl), {
+      res = await fetch(getUrl, {
         method: "GET"
       });
     } catch (err) {

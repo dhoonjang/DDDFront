@@ -18,6 +18,10 @@ export interface ILoginApiReturn extends IApiReturn {
   joinRequired?: boolean;
 }
 
+export interface IJoinApiReturn extends IApiReturn {
+  token: IToken | null;
+}
+
 export const authApi = async (token: IToken): Promise<IApiReturn> => {
   const { get } = MapiAgent(token);
   const res = await get("/auth");
@@ -61,7 +65,7 @@ export const joinApi = async (
   grade: string,
   category1: string,
   category2: string
-): Promise<IApiReturn> => {
+): Promise<IJoinApiReturn> => {
   const { post } = NMapiAgent();
   const res = await post(
     "/join/kakao",
@@ -75,9 +79,15 @@ export const joinApi = async (
     })
   );
   if (res.code === 200) {
+    const newToken = makeToken(
+      res.access_token,
+      res.refresh_token,
+      ETokenStatus.new
+    );
     return {
-      status: EApiReturnStatus.success
+      status: EApiReturnStatus.success,
+      token: newToken
     };
   }
-  return { status: EApiReturnStatus.fail };
+  return { status: EApiReturnStatus.fail, token: null };
 };

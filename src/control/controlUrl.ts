@@ -3,6 +3,14 @@ export interface IHistory {
   push: (path: string) => void;
 }
 
+export function makeGetUrl(baseUrl: string, url: string, params: any): string {
+  const getUrl = new URL(baseUrl + url);
+  if (params) {
+    getUrl.search = new URLSearchParams(params).toString();
+  }
+  return String(getUrl);
+}
+
 export function ReloadUrlMove(path: string): void {
   window.location.href = path;
 }
