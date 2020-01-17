@@ -1,6 +1,5 @@
-import { resolve } from "dns";
-import { errorHandler } from "../control/constrolError";
-import { ETokenStatus, IToken } from "../control/controlToken";
+import { errorHandler } from "../control/controlError";
+import { getRightToken, IToken } from "../control/controlToken";
 
 const baseUrl = "https://api.ddakdae.com/";
 
@@ -11,40 +10,38 @@ export enum ERequestType {
   delete = "DELETE"
 }
 
-async function request(
-  type: ERequestType,
-  url: string,
-  body?: any,
-  token?: string
-): Promise<any> {
-  let res;
-  try {
-    res = await fetch(baseUrl + url, {
-      method: type,
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(body)
-    });
-  } catch (err) {
-    return errorHandler(err);
-  }
-  return res.json;
-}
-
 export const MapiAgent = (storeToken: IToken) => {
-  let token = storeToken.accessToken;
-
-  if (storeToken.status === ETokenStatus.expired) {
-    console.log("Need Refresh AccessToken");
-    token = storeToken.refreshToken;
-  }
+  const token = getRightToken(storeToken); // getRightToken(storeToken)
 
   const post = async (url: string, body: JSON): Promise<any> => {
-    return request(ERequestType.post, url, body, token);
+    let res;
+    try {
+      res = await fetch(baseUrl + url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(body)
+      });
+    } catch (err) {
+      return errorHandler(err);
+    }
+    return res.json;
   };
+
   const get = async (url: string): Promise<any> => {
-    return request(ERequestType.get, url, {}, token);
+    let res;
+    try {
+      res = await fetch(baseUrl + url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    } catch (err) {
+      return errorHandler(err);
+    }
+    return res.json;
   };
 
   return { post, get };
@@ -52,11 +49,27 @@ export const MapiAgent = (storeToken: IToken) => {
 
 export const NMapiAgent = () => {
   const post = async (url: string, body: JSON): Promise<any> => {
-    return request(ERequestType.post, url, body);
+    let res;
+    try {
+      res = await fetch(baseUrl + url, {
+        method: "POST",
+        body: JSON.stringify(body)
+      });
+    } catch (err) {
+      return errorHandler(err);
+    }
+    return res.json;
   };
-
   const get = async (url: string): Promise<any> => {
-    return request(ERequestType.post, url);
+    let res;
+    try {
+      res = await fetch(baseUrl + url, {
+        method: "GET"
+      });
+    } catch (err) {
+      return errorHandler(err);
+    }
+    return res.json;
   };
 
   return { post, get };

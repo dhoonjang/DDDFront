@@ -1,17 +1,11 @@
 import { action, observable } from "mobx";
-import { MapiAgent } from "../../api/apiAgent";
+import { authApi, EApiReturn } from "../../api/authApi";
 import { clearLocal } from "../../control/controlLocal";
 import {
   getLocalToken,
   IToken,
   setLocalToken
 } from "../../control/controlToken";
-
-export enum EAuthReturn {
-  expired = "ExpiredToken",
-  fail = "Fail",
-  success = "Success"
-}
 
 class AuthStore {
   public static getInstance(): AuthStore {
@@ -39,16 +33,13 @@ class AuthStore {
   }
 
   @action
-  public async authorized(): Promise<EAuthReturn> {
+  public async authorized() {
     if (this.token) {
-      const { get } = MapiAgent(this.token);
-      const res = await get("auth");
-      if (res.status === 200) {
+      const authReturn = await authApi(this.token);
+      if (authReturn === EApiReturn.success) {
         this.authenticated = true;
-        return EAuthReturn.success;
       }
     }
-    return EAuthReturn.fail;
   }
 
   @action

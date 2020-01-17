@@ -39,3 +39,18 @@ export function makeToken(
     status
   };
 }
+
+export function tokenUpdate(token: IToken, status: ETokenStatus): IToken {
+  return {
+    accessToken: token.accessToken,
+    refreshToken: token.refreshToken,
+    status
+  };
+}
+
+export function getRightToken(token: IToken) {
+  if (token.status === ETokenStatus.expired) {
+    return token.refreshToken;
+  }
+  return token.accessToken;
+}
