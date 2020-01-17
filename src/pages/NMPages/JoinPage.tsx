@@ -1,7 +1,6 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
 
-const JoinPage: React.FC<RouteComponentProps> = ({ history }) => {
+const JoinPage: React.FC = () => {
   return (
     <div className="JoinPage">
       <h2>JoinPage</h2>

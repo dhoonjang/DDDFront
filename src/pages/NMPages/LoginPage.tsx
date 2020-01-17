@@ -1,5 +1,5 @@
 import React from "react";
-import { makeToken } from "../../control/controlToken";
+import { ETokenStatus, makeToken } from "../../control/controlToken";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 import { EAuthReturn } from "../../store/storeModel/authStore";
@@ -8,9 +8,8 @@ const LoginPage: React.FC = () => {
   const { authorized, setToken } = useAuthAction();
 
   const logInFunc = () => {
-    const newToken = makeToken("abcdefg", "hijklmnop");
+    const newToken = makeToken("abcdefg", "hijklmnop", ETokenStatus.new);
     setToken(newToken);
-
     const authReturn: EAuthReturn = authorized();
 
     if (authReturn === EAuthReturn.success) {

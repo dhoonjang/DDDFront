@@ -1,12 +1,14 @@
 import { clearLocal, getLocalItem, setLocalItem } from "./controlLocal";
 
-export const defaulTTokenType = "Bearer";
-
+export enum ETokenStatus {
+  new = "NEW",
+  old = "OLD",
+  expired = "EXPIRED"
+}
 export interface IToken {
-  readonly type: string;
-  readonly accessToken: string;
-  readonly refreshToken: string;
-  readonly isExpired: boolean;
+  accessToken: string;
+  refreshToken: string;
+  status: ETokenStatus;
 }
 
 export function setLocalToken(token: IToken): void {
@@ -23,14 +25,17 @@ export function getLocalToken(): IToken | null {
     return null;
   }
 
-  return makeToken(accessToken, refreshToken);
+  return makeToken(accessToken, refreshToken, ETokenStatus.old);
 }
 
-export function makeToken(accessToken: string, refreshToken: string): IToken {
+export function makeToken(
+  accessToken: string,
+  refreshToken: string,
+  status: ETokenStatus
+): IToken {
   return {
-    type: defaulTTokenType,
     accessToken,
     refreshToken,
-    isExpired: false
+    status
   };
 }
