@@ -12,6 +12,8 @@ class UserStore {
 
   @observable public number = 0;
 
+  @observable public status = "NonMember";
+
   private constructor() {}
 
   @action

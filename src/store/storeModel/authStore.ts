@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, computed, observable } from "mobx";
 import { authApi, EApiReturn } from "../../api/authApi";
 import { clearLocal } from "../../control/controlLocal";
 import {
@@ -19,12 +19,17 @@ class AuthStore {
   private static instance: AuthStore;
 
   @observable
-  public token: IToken | null = getLocalToken();
-
-  @observable
   public authenticated: boolean = false;
 
+  @observable
+  private token: IToken | null = getLocalToken();
+
   private constructor() {}
+
+  @computed
+  public getToken(): IToken | null {
+    return this.token;
+  }
 
   @action
   public setToken(token: IToken): void {

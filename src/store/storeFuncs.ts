@@ -14,7 +14,7 @@ export function useAuthData() {
   const { auth } = useStores();
   return useObserver(() => ({
     authenticated: auth.authenticated,
-    token: auth.token
+    token: auth.getToken()
   }));
 }
 
