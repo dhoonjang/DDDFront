@@ -13,6 +13,9 @@ export interface IToken {
 }
 
 export function setLocalToken(token: IToken): void {
+  if (token.status === ETokenStatus.semi || ETokenStatus.expired) {
+    return;
+  }
   setLocalItem("access_token", token.accessToken);
   setLocalItem("refresh_token", token.refreshToken);
 }

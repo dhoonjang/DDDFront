@@ -7,11 +7,11 @@ stages:
 
 before_script:
   - apt-get update -qq && apt-get install
-  
+
 cache:
   paths:
     - node_modules/
-    
+
 install:
   stage: install
   script:
@@ -28,12 +28,11 @@ build:
   dependencies:
     - install
 
-variables:
-    S3_BUCKET_NAME: "ddackdae-client"
 deploy:
+  image: python:latest
   stage: deploy
   script:
-    - yarn add awscli
+    - pip install aws-cli
     - yarn aws-deploy
     - yarn aws-cache-clear
   only:

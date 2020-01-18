@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 const FirstPage: React.FC = () => {
   return (
     <div className="FirstPage">
-      <h2>FristPage</h2>
+      <h2>Frist Page</h2>
       <br />
-      <Link to="/login">Login</Link>
+      <Link to="/login">go to login page</Link>
     </div>
   );
 };

@@ -25,7 +25,6 @@ class AuthStore {
   private token: IToken | null = getLocalToken();
 
   private constructor() {}
-
   @computed
   get storeToken(): IToken | null {
     return this.token;

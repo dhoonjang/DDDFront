@@ -1,17 +1,6 @@
-import { clearLocal } from "../control/controlLocal";
 import { ETokenStatus, IToken, makeToken } from "../control/controlToken";
-import { MapiAgent, NMapiAgent } from "./apiAgent";
-
-export enum EApiReturnStatus {
-  expired = "EXPIRED_TOKEN",
-  fail = "FAIL",
-  success = "SUCCESS"
-}
-
-export interface IApiReturn {
-  status: EApiReturnStatus;
-  data?: any;
-}
+import { NMapiAgent } from "./apiAgent";
+import { EApiReturnStatus, IApiReturn } from "./MapiFuncs";
 
 export interface ILoginApiReturn extends IApiReturn {
   token: IToken | null;
@@ -21,18 +10,6 @@ export interface ILoginApiReturn extends IApiReturn {
 export interface IJoinApiReturn extends IApiReturn {
   token: IToken | null;
 }
-
-export const authApi = async (token: IToken): Promise<IApiReturn> => {
-  const { get } = MapiAgent(token);
-  const res = await get("/auth");
-  if (res.code === 200) {
-    return {
-      status: EApiReturnStatus.success
-    };
-  }
-  clearLocal();
-  return { status: EApiReturnStatus.fail };
-};
 
 export const loginApi = async (code: string): Promise<ILoginApiReturn> => {
   const { get } = NMapiAgent();

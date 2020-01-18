@@ -1,24 +1,28 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import { EApiReturnStatus, loginApi } from "../../api/apiFuncs";
+import { useHistory, useParams } from "react-router-dom";
+import { EApiReturnStatus } from "../../api/MapiFuncs";
+import { loginApi } from "../../api/NMapiFuncs";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 
 const LoginPage: React.FC = () => {
+  const { code } = useParams();
   const { authorized, setToken } = useAuthAction();
   const history = useHistory();
 
   const logInFunc = async () => {
-    const res = await loginApi("temp_code");
-    if (res.status === EApiReturnStatus.success && res.token) {
-      setToken(res.token);
-      if (res.joinRequired) {
-        RouteUrlMove(history, "/join");
-        return;
-      }
-      const authReturn: boolean = authorized();
-      if (authReturn) {
-        RouteUrlMove(history, "/");
+    if (code) {
+      const res = await loginApi(code);
+      if (res.status === EApiReturnStatus.success && res.token) {
+        setToken(res.token);
+        if (res.joinRequired) {
+          RouteUrlMove(history, "/join");
+          return;
+        }
+        const authReturn: boolean = authorized();
+        if (authReturn) {
+          RouteUrlMove(history, "/");
+        }
       }
     }
   };

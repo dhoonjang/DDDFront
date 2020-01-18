@@ -12,13 +12,13 @@ export enum ERequestType {
 }
 
 export const MapiAgent = (storeToken: IToken) => {
-  const token = getRightToken(storeToken); // getRightToken(storeToken)
+  const token = getRightToken(storeToken);
 
   const post = async (url: string, body: string): Promise<any> => {
     let res;
     try {
       res = await fetch(baseUrl + url, {
-        method: "POST",
+        method: ERequestType.post,
         headers: {
           Authorization: `Bearer ${token}`
         },
@@ -35,7 +35,7 @@ export const MapiAgent = (storeToken: IToken) => {
     let res;
     try {
       res = await fetch(getUrl, {
-        method: "GET",
+        method: ERequestType.get,
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -54,7 +54,7 @@ export const NMapiAgent = () => {
     let res;
     try {
       res = await fetch(baseUrl + url, {
-        method: "POST",
+        method: ERequestType.post,
         body
       });
     } catch (err) {
@@ -67,7 +67,7 @@ export const NMapiAgent = () => {
     let res;
     try {
       res = await fetch(getUrl, {
-        method: "GET"
+        method: ERequestType.get
       });
     } catch (err) {
       return errorHandler(err);
