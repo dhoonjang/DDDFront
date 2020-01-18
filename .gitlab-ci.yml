@@ -32,7 +32,7 @@ deploy:
   image: python:latest
   stage: deploy
   script:
-    - pip install aws-cli
+    - pip install awscli
     - yarn aws-deploy
     - yarn aws-cache-clear
   only:
