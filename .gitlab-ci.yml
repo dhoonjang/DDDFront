@@ -5,15 +5,14 @@ stages:
   - build
   - deploy
 
-before_script:
-  - apt-get update -qq && apt-get install
-
 cache:
   paths:
     - node_modules/
 
 install:
   stage: install
+  before_script:
+    - apt-get update -qq && apt-get install
   script:
     - yarn install
   only:
@@ -27,13 +26,11 @@ build:
     - master
   dependencies:
     - install
-  artifacts:
-    paths:
-        - build/
 
 variables:
   S3_BUCKET_NAME: ddakdae-client
   CF_DISTRIBUTION_ID: E1UCZ1564QEQI0
+
 deploy:
   image: python:latest
   stage: deploy
