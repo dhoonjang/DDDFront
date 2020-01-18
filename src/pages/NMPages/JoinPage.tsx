@@ -4,6 +4,7 @@ const JoinPage: React.FC = () => {
   return (
     <div className="JoinPage">
       <h2>JoinPage</h2>
+      ready to join
       <br />
     </div>
   );
