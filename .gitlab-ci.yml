@@ -1,0 +1,40 @@
+image: node:latest
+
+stages:
+  - install
+  - build
+  - deploy
+
+before_script:
+  - apt-get update -qq && apt-get install
+  
+cache:
+  paths:
+    - node_modules/
+    
+install:
+  stage: install
+  script:
+    - yarn install
+  only:
+    - master
+
+build:
+  stage: build
+  script:
+    - yarn build
+  only:
+    - master
+  dependencies:
+    - install_client
+
+variables:
+    S3_BUCKET_NAME: "ddackdae-client"
+deploy:
+  stage: deploy
+  script:
+    - yarn add awscli
+    - yarn aws-deploy
+    - yarn aws-cache-clear
+  only:
+    - master
