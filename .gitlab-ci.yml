@@ -26,7 +26,7 @@ build:
   only:
     - master
   dependencies:
-    - install_client
+    - install
 
 variables:
     S3_BUCKET_NAME: "ddackdae-client"
