@@ -28,12 +28,16 @@ build:
   dependencies:
     - install
 
+variables:
+  S3_BUCKET_NAME: ddakdae-client
+  CF_DISTRIBUTION_ID: E1UCZ1564QEQI0
 deploy:
   image: python:latest
   stage: deploy
   script:
     - pip install awscli
-    - yarn aws-deploy
-    - yarn aws-cache-clear
+    - aws s3 sync build s3://$S3_BUCKET_NAME/
+    - aws cloudfront create-invalidation --distribution-id=$CF_DISTRIBUTION_ID --paths '/*
+
   only:
     - master
