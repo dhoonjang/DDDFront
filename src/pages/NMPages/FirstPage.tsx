@@ -6,7 +6,7 @@ const FirstPage: React.FC = () => {
     "https://kauth.kakao.com",
     "/oauth/authorize",
     {
-      cliet_id: "b9339e3d9d65a4a60f71b38c8da49977",
+      client_id: "b9339e3d9d65a4a60f71b38c8da49977",
       redirect_uri: "https://ddakdae.com/login",
       response_type: "code"
     }
