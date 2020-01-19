@@ -68,7 +68,7 @@ export const authApiAgent = (token: IToken) => {
       const refreshedToken = await refreshAccessToken(token);
       if (refreshedToken) {
         const reAccessAgent = apiAgent(refreshedToken.accessToken);
-        res = await reAccessAgent.post(url, params);
+        res = await reAccessAgent.get(url, params);
       }
     }
     return res;
