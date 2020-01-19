@@ -1,5 +1,5 @@
 import { errorHandler } from "../control/controlError";
-import { getRightToken, IToken } from "../control/controlToken";
+import { IToken, refreshAccessToken } from "../control/controlToken";
 import { makeGetUrl } from "../control/controlUrl";
 
 const baseUrl = "https://api.ddakdae.com";
@@ -11,9 +11,7 @@ export enum ERequestType {
   delete = "DELETE"
 }
 
-export const MapiAgent = (storeToken: IToken) => {
-  const token = getRightToken(storeToken);
-
+export const apiAgent = (token?: string) => {
   const post = async (url: string, body: string): Promise<any> => {
     let res;
     try {
@@ -49,31 +47,31 @@ export const MapiAgent = (storeToken: IToken) => {
   return { post, get };
 };
 
-export const NMapiAgent = () => {
+export const MapiAgent = (token: IToken) => {
+  const accessAgent = apiAgent(token.accessToken);
+
   const post = async (url: string, body: string): Promise<any> => {
-    let res;
-    try {
-      res = await fetch(baseUrl + url, {
-        method: ERequestType.post,
-        body
-      });
-    } catch (err) {
-      return errorHandler(err);
+    let res = await accessAgent.post(url, body);
+    if (res.code === 401) {
+      const refreshedToken = await refreshAccessToken(token);
+      if (refreshedToken) {
+        const reAccessAgent = apiAgent(refreshedToken.accessToken);
+        res = await reAccessAgent.post(url, body);
+      }
     }
-    return res.json;
-  };
-  const get = async (url: string, params?: any): Promise<any> => {
-    const getUrl = makeGetUrl(baseUrl, url, params);
-    let res;
-    try {
-      res = await fetch(getUrl, {
-        method: ERequestType.get
-      });
-    } catch (err) {
-      return errorHandler(err);
-    }
-    return res.json;
+    return res;
   };
 
+  const get = async (url: string, params?: any): Promise<any> => {
+    let res = await accessAgent.get(url, params);
+    if (res.code === 401) {
+      const refreshedToken = await refreshAccessToken(token);
+      if (refreshedToken) {
+        const reAccessAgent = apiAgent(refreshedToken.accessToken);
+        res = await reAccessAgent.post(url, params);
+      }
+    }
+    return res;
+  };
   return { post, get };
 };

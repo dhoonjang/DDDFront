@@ -11,8 +11,12 @@ export function makeGetUrl(baseUrl: string, url: string, params: any): string {
   return String(getUrl);
 }
 
-export function ReloadUrlMove(path: string): void {
-  window.location.href = path;
+export function ReloadUrlMove(path?: string): void {
+  if (path) {
+    window.location.href = path;
+  } else {
+    window.location.reload();
+  }
 }
 
 export function RouteUrlMove(

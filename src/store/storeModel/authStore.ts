@@ -1,7 +1,6 @@
 import { action, computed, observable } from "mobx";
 import { clearLocal } from "../../control/controlLocal";
 import {
-  ETokenStatus,
   getLocalToken,
   IToken,
   setLocalToken
@@ -25,23 +24,24 @@ class AuthStore {
   private token: IToken | null = getLocalToken();
 
   private constructor() {}
+
   @computed
   get storeToken(): IToken | null {
+    if (this.token !== getLocalToken()) {
+      this.token = getLocalToken();
+    }
     return this.token;
   }
 
   @action
   public setToken(token: IToken): void {
+    setLocalToken(token);
     this.token = token;
-    setLocalToken(this.token);
   }
 
   @action
   public async authorized(): Promise<boolean> {
-    if (this.token) {
-      if (this.token.status === ETokenStatus.expired || ETokenStatus.semi) {
-        return false;
-      }
+    if (this.token && this.token.isValid) {
       this.authenticated = true;
       return true;
     }

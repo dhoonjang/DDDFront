@@ -1,23 +1,17 @@
+import { apiAgent } from "../api/apiAgent";
 import { clearLocal, getLocalItem, setLocalItem } from "./controlLocal";
 
-export enum ETokenStatus {
-  new = "NEW",
-  old = "OLD",
-  semi = "SEMI",
-  expired = "EXPIRED"
-}
 export interface IToken {
   accessToken: string;
   refreshToken: string;
-  status: ETokenStatus;
+  isValid: boolean;
 }
 
 export function setLocalToken(token: IToken): void {
-  if (token.status === ETokenStatus.semi || ETokenStatus.expired) {
-    return;
+  if (token.isValid) {
+    setLocalItem("access_token", token.accessToken);
+    setLocalItem("refresh_token", token.refreshToken);
   }
-  setLocalItem("access_token", token.accessToken);
-  setLocalItem("refresh_token", token.refreshToken);
 }
 
 export function getLocalToken(): IToken | null {
@@ -29,24 +23,40 @@ export function getLocalToken(): IToken | null {
     return null;
   }
 
-  return makeToken(accessToken, refreshToken, ETokenStatus.old);
+  return makeToken(accessToken, refreshToken);
 }
 
-export function makeToken(
-  accessToken: string,
-  refreshToken: string,
-  status: ETokenStatus
-): IToken {
-  return {
-    accessToken,
-    refreshToken,
-    status
-  };
-}
-
-export function getRightToken(token: IToken) {
-  if (token.status === ETokenStatus.expired) {
-    return token.refreshToken;
+export function makeToken(accessToken: string, refreshToken?: string): IToken {
+  if (refreshToken) {
+    return {
+      accessToken,
+      refreshToken,
+      isValid: true
+    };
+  } else {
+    return {
+      accessToken,
+      refreshToken: "_",
+      isValid: false
+    };
   }
-  return token.accessToken;
+}
+
+export async function refreshAccessToken(
+  token: IToken
+): Promise<IToken | null> {
+  const refreshAgent = apiAgent(token.refreshToken);
+  const refreshRes = await refreshAgent.get("/refresh");
+
+  if (refreshRes.code === 200) {
+    const refreshedToken = makeToken(
+      refreshRes.data.accessToken,
+      token.refreshToken
+    );
+    setLocalToken(refreshedToken);
+    return refreshedToken;
+  } else {
+    clearLocal();
+    return null;
+  }
 }

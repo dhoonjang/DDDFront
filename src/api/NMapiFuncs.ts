@@ -1,6 +1,6 @@
-import { ETokenStatus, IToken, makeToken } from "../control/controlToken";
-import { NMapiAgent } from "./apiAgent";
-import { EApiReturnStatus, IApiReturn } from "./MapiFuncs";
+import { IToken, makeToken } from "../control/controlToken";
+import { apiAgent } from "./apiAgent";
+import { IApiReturn } from "./MapiFuncs";
 
 export interface ILoginApiReturn extends IApiReturn {
   token: IToken | null;
@@ -12,42 +12,38 @@ export interface IJoinApiReturn extends IApiReturn {
 }
 
 export const loginApi = async (code: string): Promise<ILoginApiReturn> => {
-  const { get } = NMapiAgent();
+  const { get } = apiAgent();
   const res = await get("/login/kakao", { code });
   if (res.code === 200) {
-    const newToken = makeToken(
-      res.access_token,
-      res.refresh_token,
-      ETokenStatus.new
-    );
+    const token = makeToken(res.access_token, res.refresh_token);
     return {
-      status: EApiReturnStatus.success,
-      token: newToken
+      success: true,
+      token
     };
   } else if (res.code === 301) {
-    const semiToken = makeToken(res.access_token, "_", ETokenStatus.semi);
+    const semiToken = makeToken(res.access_token);
     return {
-      status: EApiReturnStatus.success,
+      success: false,
       token: semiToken,
       joinRequired: true
     };
   }
-  return { status: EApiReturnStatus.fail, token: null };
+  return { success: false, token: null };
 };
 
 export const joinApi = async (
-  token: IToken,
+  semiToken: IToken,
   user_kind: string,
   hs: string,
   grade: string,
   category1: string,
   category2: string
 ): Promise<IJoinApiReturn> => {
-  const { post } = NMapiAgent();
+  const { post } = apiAgent();
   const res = await post(
     "/join/kakao",
     JSON.stringify({
-      access_token: token.accessToken,
+      access_token: semiToken.accessToken,
       user_kind,
       hs,
       grade,
@@ -56,15 +52,11 @@ export const joinApi = async (
     })
   );
   if (res.code === 200) {
-    const newToken = makeToken(
-      res.access_token,
-      res.refresh_token,
-      ETokenStatus.new
-    );
+    const token = makeToken(res.access_token, res.refresh_token);
     return {
-      status: EApiReturnStatus.success,
-      token: newToken
+      success: true,
+      token
     };
   }
-  return { status: EApiReturnStatus.fail, token: null };
+  return { success: false, token: null };
 };
