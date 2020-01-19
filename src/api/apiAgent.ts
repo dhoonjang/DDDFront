@@ -12,7 +12,7 @@ export enum ERequestType {
 }
 
 export const apiAgent = (tokenCode?: string) => {
-  const post = async (url: string, body: string): Promise<any> => {
+  const post = async (url: string, data: any): Promise<any> => {
     let res;
     try {
       res = await fetch(baseUrl + url, {
@@ -20,7 +20,7 @@ export const apiAgent = (tokenCode?: string) => {
         headers: {
           Authorization: `Bearer ${tokenCode}`
         },
-        body
+        body: JSON.stringify(data)
       });
     } catch (err) {
       return errorHandler(err);
@@ -47,16 +47,16 @@ export const apiAgent = (tokenCode?: string) => {
   return { post, get };
 };
 
-export const MapiAgent = (token: IToken) => {
+export const authApiAgent = (token: IToken) => {
   const accessAgent = apiAgent(token.accessToken);
 
-  const post = async (url: string, body: string): Promise<any> => {
-    let res = await accessAgent.post(url, body);
+  const post = async (url: string, data: any): Promise<any> => {
+    let res = await accessAgent.post(url, data);
     if (res.code === 401) {
       const refreshedToken = await refreshAccessToken(token);
       if (refreshedToken) {
         const reAccessAgent = apiAgent(refreshedToken.accessToken);
-        res = await reAccessAgent.post(url, body);
+        res = await reAccessAgent.post(url, data);
       }
     }
     return res;
