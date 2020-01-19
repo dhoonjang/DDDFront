@@ -11,14 +11,14 @@ export enum ERequestType {
   delete = "DELETE"
 }
 
-export const apiAgent = (token?: string) => {
+export const apiAgent = (tokenCode?: string) => {
   const post = async (url: string, body: string): Promise<any> => {
     let res;
     try {
       res = await fetch(baseUrl + url, {
         method: ERequestType.post,
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${tokenCode}`
         },
         body
       });
@@ -35,7 +35,7 @@ export const apiAgent = (token?: string) => {
       res = await fetch(getUrl, {
         method: ERequestType.get,
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${tokenCode}`
         }
       });
     } catch (err) {
