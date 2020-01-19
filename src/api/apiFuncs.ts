@@ -1,7 +1,7 @@
 import md5 from "md5";
 import { useEffect, useState } from "react";
 
-export type TApiModel = (...parameter: any[]) => Promise<any>;
+export type TApiModel = (...parameters: any[]) => Promise<any>;
 
 export const useApiModel = (
   apiModel: TApiModel,
@@ -15,7 +15,7 @@ export const useApiModel = (
       setRes(response);
     };
     requestApi();
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiModel, md5(parameters)]);
 
   return res;

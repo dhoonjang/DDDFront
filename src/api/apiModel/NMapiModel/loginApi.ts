@@ -2,7 +2,7 @@ import { IApiReturn } from "..";
 import { IToken, makeToken } from "../../../control/controlToken";
 import { apiAgent } from "../../apiAgent";
 
-export type TLoginApiNeeds = Parameters<typeof loginApi>;
+export type TLoginApiParameter = Parameters<typeof loginApi>;
 export interface ILoginApiReturn extends IApiReturn {
   token: IToken | null;
   joinRequired?: boolean;

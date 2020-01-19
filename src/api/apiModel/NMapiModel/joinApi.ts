@@ -2,18 +2,17 @@ import { IApiReturn } from "..";
 import { IToken, makeToken } from "../../../control/controlToken";
 import { apiAgent } from "../../apiAgent";
 
-export type TJoinApiNeeds = Parameters<typeof joinApi>;
+export type TJoinApiParameter = Parameters<typeof joinApi>;
 export interface IJoinApiReturn extends IApiReturn {
-  token: IToken | null;
+  token?: IToken;
 }
 
 const joinApi = async (
   semiToken: IToken,
   user_kind: string,
+  sex: number,
   hs: string,
-  grade: string,
-  category1: string,
-  category2: string
+  grade: number
 ): Promise<IJoinApiReturn> => {
   const { post } = apiAgent();
   const res = await post(
@@ -22,19 +21,18 @@ const joinApi = async (
       access_token: semiToken.accessToken,
       user_kind,
       hs,
-      grade,
-      category1,
-      category2
+      sex,
+      grade
     })
   );
   if (res.code === 200) {
-    const token = makeToken(res.access_token, res.refresh_token);
+    const token = makeToken(res.data.access_token, res.data.refresh_token);
     return {
       success: true,
       token
     };
   }
-  return { success: false, token: null };
+  return { success: false };
 };
 
 export default joinApi;

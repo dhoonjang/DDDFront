@@ -2,18 +2,20 @@ import { IApiReturn } from "..";
 import { IToken } from "../../../control/controlToken";
 import { authApiAgent } from "../../apiAgent";
 
-export type TMomApiNeeds = Parameters<typeof momApi>;
+export type TMomApiParameter = Parameters<typeof momApi>;
 export interface IMomApiReturn extends IApiReturn {
-  mom_order?: string[];
-  d_day?: string[];
-  user_info?: {
-    high_school?: string;
-    nick_name?: string;
-    profile_image?: string;
-    suneong_score?: string;
-    nashin_score?: string;
-    like_univ?: string;
-    like_col?: string;
+  data?: {
+    mom_order: string[];
+    d_day: object[];
+    user_info: {
+      high_school: string;
+      nick_name: string;
+      profile_image?: string;
+      suneong_score?: number;
+      nashin_score?: number;
+      like_univ?: string;
+      like_col?: string;
+    };
   };
 }
 

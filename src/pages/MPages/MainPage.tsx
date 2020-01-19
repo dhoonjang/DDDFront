@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useApiModel } from "../../api/apiFuncs";
 import { momApi } from "../../api/apiModel";
-import { TMomApiNeeds } from "../../api/apiModel/MapiModel/momApi";
+import { TMomApiParameter } from "../../api/apiModel/MapiModel/momApi";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction, useAuthData } from "../../store/storeFuncs";
 
@@ -16,8 +16,8 @@ const MainPage: React.FC = () => {
     RouteUrlMove(history, "/");
   };
 
-  const momApiNeeds: TMomApiNeeds = [token];
-  const momData = useApiModel(momApi, momApiNeeds);
+  const momApiParameter: TMomApiParameter = [token];
+  const momData = useApiModel(momApi, momApiParameter);
 
   console.log(momData);
   return (
