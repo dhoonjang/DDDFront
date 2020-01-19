@@ -1,17 +1,22 @@
+import qs from "query-string";
 import React from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { loginApi } from "../../api/NMapiFuncs";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 
 const LoginPage: React.FC = () => {
-  const { code } = useParams();
+  const location = useLocation();
+  const { code } = qs.parse(location.search);
+
   const { authorized, setToken } = useAuthAction();
   const history = useHistory();
 
+  console.log(code);
+
   const logInFunc = async () => {
     if (code) {
-      const res = await loginApi(code);
+      const res = await loginApi(String(code));
       if (res.success && res.token) {
         setToken(res.token);
         if (res.joinRequired) {
