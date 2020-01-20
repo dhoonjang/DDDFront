@@ -10,11 +10,10 @@ build:
     - yarn install
   script:
     - yarn build
-  only:
-    - master
   artifacts:
-    paths:
-      - build
+    paths: build
+  rules:
+    branch: master
 
 variables:
   S3_BUCKET_NAME: ddakdae-client
@@ -28,7 +27,7 @@ deploy:
     - aws s3 sync build s3://$S3_BUCKET_NAME/
   after_script:
     - aws cloudfront create-invalidation --distribution-id=$CF_DISTRIBUTION_ID --paths '/*'
-  only:
-    - master
   dependencies:
     - build
+  rules:
+    branch: master
