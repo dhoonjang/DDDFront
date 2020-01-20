@@ -19,6 +19,14 @@ export function ReloadUrlMove(path?: string): void {
   }
 }
 
+export function getUrlInfo() {
+  const protocol = window.location.protocol;
+  const host = window.location.host;
+  const origin = window.location.origin;
+
+  return { protocol, host, origin };
+}
+
 export function RouteUrlMove(
   history: IHistory,
   path: string,
