@@ -13,6 +13,7 @@ class UserStore {
   @observable public name: string | null = null;
   @observable public status: string | null = null;
   @observable public highSchool: string | null = null;
+  @observable public grade: number | null = null;
 
   private constructor() {}
 
@@ -29,6 +30,10 @@ class UserStore {
   @action
   public setUserHs(hs: string) {
     this.highSchool = hs;
+  }
+  @action
+  public setUserGrade(grade: number) {
+    this.grade = grade;
   }
 }
 
