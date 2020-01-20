@@ -3,16 +3,17 @@ import { Link, useHistory } from "react-router-dom";
 import { useApiModel } from "../../api/apiFuncs";
 import { momApi } from "../../api/apiModel";
 import { TMomApiParameter } from "../../api/apiModel/MapiModel/momApi";
+import { getToken } from "../../control/controlToken";
 import { RouteUrlMove } from "../../control/controlUrl";
-import { useAuthAction, useAuthData } from "../../store/storeFuncs";
+import { useAuthAction } from "../../store/storeFuncs";
 
 const MainPage: React.FC = () => {
-  const { clearStore } = useAuthAction();
-  const { token } = useAuthData();
+  const { unAuthorized } = useAuthAction();
   const history = useHistory();
+  const token = getToken();
 
   const logOutFunc = () => {
-    clearStore();
+    unAuthorized();
     RouteUrlMove(history, "/");
   };
 

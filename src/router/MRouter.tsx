@@ -7,7 +7,6 @@ const MRouter: React.FC = () => {
 
   return (
     <Router>
-      <h1>Member Router</h1>
       <Route exact={true} path={"/"} component={MainPage} />
     </Router>
   );

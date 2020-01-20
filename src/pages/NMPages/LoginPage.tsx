@@ -1,40 +1,55 @@
 import qs from "query-string";
-import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { loginApi } from "../../api/apiModel";
 import { ILoginApiReturn } from "../../api/apiModel/NMapiModel/loginApi";
+import { setLocalToken } from "../../control/controlToken";
 import { RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
 
 const LoginPage: React.FC = () => {
-  const location = useLocation();
-  const { code } = qs.parse(location.search);
-  const { authorized, setToken } = useAuthAction();
+  const [isLogging, setIsLogging] = useState(true);
+
   const history = useHistory();
-  console.log(code);
+  const location = useLocation();
+  const { authorized } = useAuthAction();
+
+  const { code } = qs.parse(location.search);
 
   const logInFunc = async () => {
     if (code) {
       const res: ILoginApiReturn = await loginApi(String(code));
       if (res.success && res.token) {
-        setToken(res.token);
+        setLocalToken(res.token);
         if (res.joinRequired) {
           RouteUrlMove(history, "/join");
-          return;
-        }
-        const authReturn: boolean = authorized();
-        if (authReturn) {
-          RouteUrlMove(history, "/");
+        } else {
+          const authReturn: boolean = authorized();
+          if (authReturn) {
+            RouteUrlMove(history, "/");
+          }
         }
       }
     }
+    setIsLogging(false);
   };
-
+  if (isLogging) {
+    logInFunc();
+  }
   return (
     <div className="LoginPage">
-      <h2>LoginPage</h2>
-      <br />
-      <button onClick={logInFunc}>Log In</button>
+      <Link to="/">Home</Link> <Link to="/join">Join</Link>
+      {isLogging ? (
+        <div>
+          <h2>LOGGING...</h2>
+        </div>
+      ) : (
+        <div>
+          <h2>LOGIN FAIL!</h2>
+          <button onClick={logInFunc}>Retry Login Button</button>
+          <br />
+        </div>
+      )}
     </div>
   );
 };

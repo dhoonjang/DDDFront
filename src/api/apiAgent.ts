@@ -12,7 +12,7 @@ export enum ERequestType {
 }
 
 export const apiAgent = (tokenCode?: string) => {
-  const post = async (url: string, data: any): Promise<any> => {
+  const post = async (url: string, data?: any): Promise<any> => {
     let res;
     try {
       res = await fetch(baseUrl + url, {
@@ -50,7 +50,7 @@ export const apiAgent = (tokenCode?: string) => {
 export const authApiAgent = (token: IToken) => {
   const accessAgent = apiAgent(token.accessToken);
 
-  const post = async (url: string, data: any): Promise<any> => {
+  const post = async (url: string, data?: any): Promise<any> => {
     let res = await accessAgent.post(url, data);
     if (res.code === 401) {
       const refreshedToken = await refreshAccessToken(token);
@@ -73,5 +73,6 @@ export const authApiAgent = (token: IToken) => {
     }
     return res;
   };
+
   return { post, get };
 };
