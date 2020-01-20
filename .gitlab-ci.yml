@@ -14,7 +14,8 @@ build:
     paths:
       - build
   rules:
-    - branch: master
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: always
 
 variables:
   S3_BUCKET_NAME: ddakdae-client
@@ -31,4 +32,4 @@ deploy:
   dependencies:
     - build
   rules:
-    - branch: master
+    - when: on_success
