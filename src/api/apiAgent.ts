@@ -1,8 +1,8 @@
+import axios, { AxiosInstance } from "axios";
 import { errorHandler } from "../control/controlError";
-import { IToken, refreshAccessToken } from "../control/controlToken";
 import { makeGetUrl } from "../control/controlUrl";
 
-const baseUrl = "https://api.ddakdae.com";
+const baseURL = "https://api.ddakdae.com";
 
 export enum ERequestType {
   post = "POST",
@@ -11,42 +11,43 @@ export enum ERequestType {
   delete = "DELETE"
 }
 
-export const apiAgent = (tokenCode?: string) => {
+export const MapiInstance: AxiosInstance = axios.create({
+  baseURL
+});
+export const NMapiInstance: AxiosInstance = axios.create({
+  baseURL
+});
+
+export const apiAgent = (auth: boolean) => {
+  let Request = NMapiInstance;
+  if (auth) {
+    Request = MapiInstance;
+  }
   const post = async (url: string, data?: any): Promise<any> => {
     let res;
     try {
-      res = await fetch(baseUrl + url, {
-        method: ERequestType.post,
-        headers: {
-          Authorization: `Bearer ${tokenCode}`
-        },
-        body: JSON.stringify(data)
-      });
+      res = await Request.post(url, JSON.stringify(data));
     } catch (err) {
       return errorHandler(err);
     }
-    return res.json;
+    return res;
   };
 
   const get = async (url: string, params?: any): Promise<any> => {
-    const getUrl = makeGetUrl(baseUrl, url, params);
+    const getUrl = makeGetUrl(baseURL, url, params);
     let res;
     try {
-      res = await fetch(getUrl, {
-        method: ERequestType.get,
-        headers: {
-          Authorization: `Bearer ${tokenCode}`
-        }
-      });
+      res = await Request.get(getUrl);
     } catch (err) {
       return errorHandler(err);
     }
-    return res.json;
+    return res;
   };
 
   return { post, get };
 };
 
+/*
 export const authApiAgent = (token: IToken) => {
   const accessAgent = apiAgent(token.accessToken);
 
@@ -76,3 +77,4 @@ export const authApiAgent = (token: IToken) => {
 
   return { post, get };
 };
+*/

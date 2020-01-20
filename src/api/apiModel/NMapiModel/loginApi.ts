@@ -9,7 +9,7 @@ export interface ILoginApiReturn extends IApiReturn {
 }
 
 const loginApi = async (code: string): Promise<ILoginApiReturn> => {
-  const { get } = apiAgent();
+  const { get } = apiAgent(false);
   const res = await get("/login/kakao", { code });
   if (res.code === 200) {
     const token = makeToken(res.access_token, res.refresh_token);

@@ -14,7 +14,7 @@ const joinApi = async (
   hs: string,
   grade: number
 ): Promise<IJoinApiReturn> => {
-  const { post } = apiAgent();
+  const { post } = apiAgent(false);
   const res = await post("/join/kakao", {
     access_token: semiToken.accessToken,
     user_kind,

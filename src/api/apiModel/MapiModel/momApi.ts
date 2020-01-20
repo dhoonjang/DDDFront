@@ -1,6 +1,6 @@
 import { IApiReturn } from "..";
 import { IToken } from "../../../control/controlToken";
-import { authApiAgent } from "../../apiAgent";
+import { apiAgent } from "../../apiAgent";
 
 export type TMomApiParameter = Parameters<typeof momApi>;
 export interface IMomApiReturn extends IApiReturn {
@@ -20,7 +20,7 @@ export interface IMomApiReturn extends IApiReturn {
 }
 
 const momApi = async (token: IToken): Promise<IMomApiReturn> => {
-  const { post } = authApiAgent(token);
+  const { post } = apiAgent(true);
   const res = await post("/mom");
   if (res.code === 200) {
     return {
