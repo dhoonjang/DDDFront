@@ -18,7 +18,7 @@ build/product:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" || $CI_COMMIT_REF_NAME == "master"
       when: always
 
-build/test:
+build/proto:
   image: node:latest
   stage: build
   before_script:
@@ -54,24 +54,19 @@ deploy/product:
   after_script:
     - aws cloudfront create-invalidation --distribution-id=$CF_DISTRIBUTION_ID --paths '/*'
   dependencies:
-    - build
+    - build/product
   rules:
     - if: $CI_COMMIT_REF_NAME == "master"
       when: on_success
 
-deploy/product:
+deploy/proto:
   image: python:latest
   stage: deploy
-  variables:
-    S3_BUCKET_NAME: ddakdae-client
-    CF_DISTRIBUTION_ID: E1UCZ1564QEQI0
   script:
     - pip install awscli
-    - aws s3 sync build s3://$S3_BUCKET_NAME/
-  after_script:
-    - aws cloudfront create-invalidation --distribution-id=$CF_DISTRIBUTION_ID --paths '/*'
+    - echo 'deploy/proto'
   dependencies:
-    - build
+    - build/proto
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: on_success
