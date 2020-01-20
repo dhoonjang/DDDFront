@@ -32,4 +32,5 @@ deploy:
   dependencies:
     - build
   rules:
-    - when: on_success
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: on_success
