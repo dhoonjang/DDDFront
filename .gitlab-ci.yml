@@ -13,7 +13,7 @@ build:
   artifacts:
     paths: build
   rules:
-    branch: dev
+    - branch: master
 
 variables:
   S3_BUCKET_NAME: ddakdae-client
@@ -30,4 +30,4 @@ deploy:
   dependencies:
     - build
   rules:
-    branch: master
+    - branch: master
