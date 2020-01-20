@@ -62,8 +62,11 @@ deploy/product:
 deploy/proto:
   image: python:latest
   stage: deploy
+  variables:
+    S3_BUCKET_NAME: ddakdae-client-proto
   script:
-    - echo 'deploy/proto'
+    - pip install awscli
+    - aws s3 sync build s3://$S3_BUCKET_NAME/
   dependencies:
     - build/proto
   rules:

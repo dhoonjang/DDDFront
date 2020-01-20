@@ -29,7 +29,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "aws-cache-clear": "aws cloudfront create-invalidation --distribution-id=E1UCZ1564QEQI0 --paths '/*'",
-    "aws-deploy": "aws s3 sync build s3://ddakdae-client/"
+    "aws-deploy": "aws s3 sync build s3://ddakdae-client/",
+    "aws-proto-deploy": "aws s3 sync build s3://ddakdae-client-proto/ --acl public-read",
+    "aws-proto-clear": "aws s3 rm s3://ddakdae-client-proto/ --recursive"
   },
   "browserslist": {
     "production": [
