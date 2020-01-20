@@ -1,6 +1,6 @@
 import qs from "query-string";
 import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { loginApi } from "../../api/apiModel";
 import { ILoginApiReturn } from "../../api/apiModel/NMapiModel/loginApi";
 import { setLocalToken } from "../../control/controlToken";
@@ -19,17 +19,6 @@ const LoginPage: React.FC = () => {
   const logInFunc = async () => {
     if (code) {
       const res: ILoginApiReturn = await loginApi(String(code));
-      /*
-      const res = {
-        success: true,
-        token: {
-          accessToken: "asdf",
-          refreshToken: "asdf",
-          isValid: true
-        },
-        joinRequired: false
-      };
-      */
       if (res.success && res.token) {
         setLocalToken(res.token);
         if (res.joinRequired) {
@@ -49,10 +38,18 @@ const LoginPage: React.FC = () => {
   }
   return (
     <div className="LoginPage">
-      Logging...
-      {!isLogging && "LOGIN FAIL"}
-      <br />
-      <button onClick={logInFunc}>Log In</button>
+      <Link to="/">Home</Link> <Link to="/join">Join</Link>
+      {isLogging ? (
+        <div>
+          <h2>LOGGING...</h2>
+        </div>
+      ) : (
+        <div>
+          <h2>LOGIN FAIL!</h2>
+          <button onClick={logInFunc}>Retry Login Button</button>
+          <br />
+        </div>
+      )}
     </div>
   );
 };

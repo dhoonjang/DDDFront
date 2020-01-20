@@ -28,7 +28,7 @@ export function getToken(): IToken {
   if (token) {
     return token;
   } else {
-    return makeToken("no token in local");
+    return makeToken("no_access_token_in_local");
   }
 }
 
@@ -45,7 +45,7 @@ export function makeToken(
   } else {
     return {
       accessToken,
-      refreshToken: "_",
+      refreshToken: "no_refresh_token_in_local",
       isValid: false
     };
   }
