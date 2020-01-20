@@ -10,11 +10,12 @@ build:
     - yarn install
   script:
     - yarn build
-  only:
-    - master
   artifacts:
     paths:
       - build
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: always
 
 variables:
   S3_BUCKET_NAME: ddakdae-client
@@ -30,3 +31,6 @@ deploy:
     - aws cloudfront create-invalidation --distribution-id=$CF_DISTRIBUTION_ID --paths '/*'
   dependencies:
     - build
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: on_success
