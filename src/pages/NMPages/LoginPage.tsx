@@ -30,7 +30,6 @@ const LoginPage: React.FC = () => {
         joinRequired: false
       };
       */
-      console.log(res);
       if (res.success && res.token) {
         setLocalToken(res.token);
         if (res.joinRequired) {

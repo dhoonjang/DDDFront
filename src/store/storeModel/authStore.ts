@@ -19,7 +19,7 @@ class AuthStore {
   private constructor() {}
 
   @action
-  public authorized(): boolean {
+  public authorized(path?: string): boolean {
     const token: IToken | null = getLocalToken();
     if (token && token.isValid) {
       this.authenticated = true;
@@ -29,7 +29,7 @@ class AuthStore {
   }
 
   @action
-  public unAuthorized(): void {
+  public unAuthorized(path?: string): void {
     clearLocal();
     this.authenticated = false;
   }
