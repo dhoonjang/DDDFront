@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
   - deploy
 
 build:
@@ -14,8 +15,19 @@ build:
     paths:
       - build
   rules:
-    - if: $CI_COMMIT_REF_NAME == "master"
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
       when: always
+    - if: $CI_MERGE_REF_NAME == "master"
+      when: always
+
+test:
+  image: node:latest
+  stage: test
+  script:
+    - echo 'test'
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      when: on_success
 
 variables:
   S3_BUCKET_NAME: ddakdae-client
