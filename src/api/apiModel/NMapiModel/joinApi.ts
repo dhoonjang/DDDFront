@@ -15,16 +15,13 @@ const joinApi = async (
   grade: number
 ): Promise<IJoinApiReturn> => {
   const { post } = apiAgent();
-  const res = await post(
-    "/join/kakao",
-    JSON.stringify({
-      access_token: semiToken.accessToken,
-      user_kind,
-      hs,
-      sex,
-      grade
-    })
-  );
+  const res = await post("/join/kakao", {
+    access_token: semiToken.accessToken,
+    user_kind,
+    hs,
+    sex,
+    grade
+  });
   if (res.code === 200) {
     const token = makeToken(res.data.access_token, res.data.refresh_token);
     return {

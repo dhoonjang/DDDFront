@@ -10,21 +10,26 @@ class UserStore {
 
   private static instance: UserStore;
 
-  @observable public number = 0;
-
-  @observable public status = "NonMember";
+  @observable public name: string | null = null;
+  @observable public status: string | null = null;
+  @observable public highSchool: string | null = null;
 
   private constructor() {}
 
   @action
-  public increase = () => {
-    this.number++;
-  };
+  public setUserName(name: string) {
+    this.name = name;
+  }
 
   @action
-  public decrease = () => {
-    this.number--;
-  };
+  public setUserStatus(status: string) {
+    this.status = status;
+  }
+
+  @action
+  public setUserHs(hs: string) {
+    this.highSchool = hs;
+  }
 }
 
 export default UserStore;
