@@ -23,7 +23,7 @@ const MainPage: React.FC = () => {
   console.log(momData);
   return (
     <div className="MainPage">
-      <h2>MainPage</h2>
+      <h2>Main Page</h2>
       <br />
       <Link to="/board">Board</Link>
       <br />
