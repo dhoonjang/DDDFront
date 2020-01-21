@@ -65,7 +65,7 @@ deploy/proto:
   stage: deploy
   variables:
     S3_BUCKET_NAME: ddakdae-client-proto
-  before-script:
+  before_script:
     - pip install awscli
   script:
     - aws s3 sync build s3://$S3_BUCKET_NAME/ --acl public-read
