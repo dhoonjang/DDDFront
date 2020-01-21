@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import qs from "query-string";
 import { errorHandler } from "../control/controlError";
 import { makeGetUrl } from "../control/controlUrl";
 
@@ -26,7 +27,7 @@ export const apiAgent = (auth: boolean) => {
   const post = async (url: string, data?: any): Promise<any> => {
     let res;
     try {
-      res = await Request.post(url, JSON.stringify(data));
+      res = await Request.post(url, qs.stringify(data));
     } catch (err) {
       return errorHandler(err);
     }

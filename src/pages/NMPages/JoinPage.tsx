@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { ETokenType, getToken } from "../../control/controlToken";
+import { ETokenCategory, getToken } from "../../control/controlToken";
 import { RouteUrlMove } from "../../control/controlUrl";
 
 const JoinPage: React.FC = () => {
   const history = useHistory();
-  const token = getToken(ETokenType.accessToken);
+  const token = getToken(ETokenCategory.accessToken);
   if (!token) {
     RouteUrlMove(history, "/");
   }

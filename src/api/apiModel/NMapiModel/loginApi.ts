@@ -8,19 +8,18 @@ export interface ILoginApiReturn extends IApiReturn {
   joinRequired?: boolean;
 }
 
-const loginApi = async (code: string): Promise<ILoginApiReturn> => {
+const loginApi = async (oauth_token: string): Promise<ILoginApiReturn> => {
   const { get } = apiAgent(false);
-  const res = await get("/login/kakao", { code });
-  if (res.code === 200) {
+  const res = await get("/login/kakao", { oauth_token });
+  if (res.status === 200) {
     return {
       success: true,
       accessToken: res.data.access_token,
       refreshToken: res.data.refresh_token
     };
-  } else if (res.code === 301) {
+  } else if (res.status === 401) {
     return {
-      success: false,
-      accessToken: res.data.access_token,
+      success: true,
       joinRequired: true
     };
   }

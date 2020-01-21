@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import md5 from "md5";
 import { useEffect, useState } from "react";
-import { ETokenType, getToken, setToken } from "../control/controlToken";
+import { ETokenCategory, getToken, setToken } from "../control/controlToken";
 
 const baseURL = "https://api.ddakdae.com";
 
@@ -30,13 +30,13 @@ const refreshAuthLogic = async (failedRequest: any) => {
   const refreshApiInstance = axios.create({
     baseURL,
     headers: {
-      Authorization: `Bearer ${getToken(ETokenType.refreshToken)}`
+      Authorization: `Bearer ${getToken(ETokenCategory.refreshToken)}`
     }
   });
 
   const res = await refreshApiInstance.get("/refresh");
 
-  setToken(ETokenType.accessToken, res.data.token);
+  setToken(ETokenCategory.accessToken, res.data.token);
 
   failedRequest.response.config.headers[
     "Authorization"
@@ -52,10 +52,15 @@ export const ConfigureApiInstance = (
   if (auth) {
     createAuthRefreshInterceptor(apiInstance, refreshAuthLogic);
     apiInstance.interceptors.request.use(request => {
-      console.log("intercept");
+      console.log(request);
       request.headers["Authorization"] = `Bearer ${getToken(
-        ETokenType.accessToken
+        ETokenCategory.accessToken
       )}`;
+      return request;
+    });
+  } else {
+    apiInstance.interceptors.request.use(request => {
+      console.log(request);
       return request;
     });
   }

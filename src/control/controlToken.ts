@@ -1,14 +1,15 @@
 import { getLocalItem, setLocalItem } from "./controlLocal";
 
-export enum ETokenType {
+export enum ETokenCategory {
+  oauthToken = "OAUTH_TOKEN",
   accessToken = "ACCESS_TOKEN",
   refreshToken = "REFRESH_TOKEN"
 }
 
-export function setToken(type: ETokenType, token: string) {
+export function setToken(type: ETokenCategory, token: string) {
   setLocalItem(type, token);
 }
 
-export function getToken(type: ETokenType): string | null {
+export function getToken(type: ETokenCategory): string | null {
   return getLocalItem(type);
 }

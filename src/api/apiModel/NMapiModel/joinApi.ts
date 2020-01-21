@@ -8,7 +8,7 @@ export interface IJoinApiReturn extends IApiReturn {
 }
 
 const joinApi = async (
-  access_token: string,
+  oauth_token: string,
   user_kind: string,
   sex: number,
   hs: string,
@@ -16,13 +16,13 @@ const joinApi = async (
 ): Promise<IJoinApiReturn> => {
   const { post } = apiAgent(false);
   const res = await post("/join/kakao", {
-    access_token,
+    oauth_token,
     user_kind,
     hs,
     sex,
     grade
   });
-  if (res.code === 200) {
+  if (res.status === 200) {
     return {
       success: true,
       accessToken: res.data.access_token,
