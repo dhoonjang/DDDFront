@@ -14,7 +14,7 @@ test:
   before_script:
     - apt-get update -qq && apt-get install
     - yarn config set cache-folder .yarn
-    - yarn insall
+    - yarn install
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
@@ -28,7 +28,7 @@ build/product:
   before_script:
     - apt-get update -qq && apt-get install
     - yarn config set cache-folder .yarn
-    - yarn insall
+    - yarn install
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
@@ -45,7 +45,7 @@ build/proto:
   before_script:
     - apt-get update -qq && apt-get install
     - yarn config set cache-folder .yarn
-    - yarn insall
+    - yarn install
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
@@ -63,8 +63,9 @@ deploy/product:
   variables:
     S3_BUCKET_NAME: ddakdae-client
     CF_DISTRIBUTION_ID: E1UCZ1564QEQI0
-  script:
+  before_script:
     - pip install awscli
+  script:
     - aws s3 sync build s3://$S3_BUCKET_NAME/
   after_script:
     - aws cloudfront create-invalidation --distribution-id=$CF_DISTRIBUTION_ID --paths '/*'
