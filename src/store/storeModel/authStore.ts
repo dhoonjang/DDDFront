@@ -1,6 +1,6 @@
 import { action, observable } from "mobx";
 import { clearLocal } from "../../control/controlLocal";
-import { getLocalToken, IToken } from "../../control/controlToken";
+import { ETokenType, getToken } from "../../control/controlToken";
 
 class AuthStore {
   public static getInstance(): AuthStore {
@@ -20,8 +20,9 @@ class AuthStore {
 
   @action
   public authorized(path?: string): boolean {
-    const token: IToken | null = getLocalToken();
-    if (token && token.isValid) {
+    const accessToken: string | null = getToken(ETokenType.accessToken);
+    const refreshToken: string | null = getToken(ETokenType.refreshToken);
+    if (accessToken && refreshToken) {
       this.authenticated = true;
       return true;
     }

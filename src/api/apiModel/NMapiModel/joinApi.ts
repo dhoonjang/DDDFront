@@ -1,14 +1,14 @@
 import { IApiReturn } from "..";
-import { IToken, makeToken } from "../../../control/controlToken";
 import { apiAgent } from "../../apiAgent";
 
 export type TJoinApiParameter = Parameters<typeof joinApi>;
 export interface IJoinApiReturn extends IApiReturn {
-  token?: IToken;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 const joinApi = async (
-  semiToken: IToken,
+  access_token: string,
   user_kind: string,
   sex: number,
   hs: string,
@@ -16,17 +16,17 @@ const joinApi = async (
 ): Promise<IJoinApiReturn> => {
   const { post } = apiAgent(false);
   const res = await post("/join/kakao", {
-    access_token: semiToken.accessToken,
+    access_token,
     user_kind,
     hs,
     sex,
     grade
   });
   if (res.code === 200) {
-    const token = makeToken(res.data.access_token, res.data.refresh_token);
     return {
       success: true,
-      token
+      accessToken: res.data.access_token,
+      refreshToken: res.data.refresh_token
     };
   }
   return { success: false };
