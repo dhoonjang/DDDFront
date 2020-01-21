@@ -24,6 +24,8 @@ build/proto:
   before_script:
     - apt-get update -qq && apt-get install
     - yarn install
+    - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
+    - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
     - yarn build
   artifacts:
