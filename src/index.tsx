@@ -10,7 +10,6 @@ import StoreProvider from "./store/storeProvider";
 dotenv.config();
 
 ConfigureApiInstance(MapiInstance, true);
-
 ConfigureApiInstance(NMapiInstance, false);
 
 ReactDOM.render(

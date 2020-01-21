@@ -39,7 +39,7 @@ test:
   image: node:latest
   stage: test
   script:
-    - echo 'test'
+    - yarn test
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" ||  $CI_COMMIT_REF_NAME == "dev"
       when: on_success
