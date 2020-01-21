@@ -6,14 +6,12 @@ stages:
 cache:
   paths:
     - node_modules/
-    - .yarn
 
 test:
   image: node:latest
   stage: test
   before_script:
     - apt-get update -qq && apt-get install
-    - yarn config set cache-folder .yarn
     - yarn install
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
@@ -26,8 +24,7 @@ test:
 build/product:
   stage: build
   before_script:
-    - apt-get update -qq && apt-get install
-    - yarn config set cache-folder .yarn
+    - apt-get update -qq && apt-get install\
     - yarn install
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
