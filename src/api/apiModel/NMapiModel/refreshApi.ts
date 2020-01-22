@@ -12,7 +12,6 @@ const refreshApi = async (refresh_token: string): Promise<ILoginApiReturn> => {
   const res = await post("/refresh", {
     refresh_token
   });
-  console.log(res);
   if (res.status === 200) {
     return {
       success: true,
