@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { loginApi, oauthApi } from "../../api/apiModel";
 import { ILoginApiReturn } from "../../api/apiModel/NMapiModel/loginApi";
+import { IOAuthApiReturn } from "../../api/apiModel/NMapiModel/oauthApi";
 import { ETokenCategory, setToken } from "../../control/controlToken";
 import { getUrlInfo, RouteUrlMove } from "../../control/controlUrl";
 import { useAuthAction } from "../../store/storeFuncs";
@@ -18,7 +19,7 @@ const LoginPage: React.FC = () => {
 
   const logInFunc = async () => {
     if (code) {
-      const oauthRes = await oauthApi(
+      const oauthRes: IOAuthApiReturn = await oauthApi(
         `${process.env.REACT_APP_KAKAO_CLIENT_ID}`,
         `${origin}/login`,
         String(code)

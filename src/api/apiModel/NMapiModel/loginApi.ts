@@ -17,7 +17,7 @@ const loginApi = async (oauth_token: string): Promise<ILoginApiReturn> => {
       accessToken: res.data.access_token,
       refreshToken: res.data.refresh_token
     };
-  } else if (res.status === 401) {
+  } else if (res.status === 301) {
     return {
       success: true,
       joinRequired: true

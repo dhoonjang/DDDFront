@@ -5,7 +5,7 @@ import { RouteUrlMove } from "../../control/controlUrl";
 
 const JoinPage: React.FC = () => {
   const history = useHistory();
-  const token = getToken(ETokenCategory.accessToken);
+  const token = getToken(ETokenCategory.oauthToken);
   if (!token) {
     RouteUrlMove(history, "/");
   }

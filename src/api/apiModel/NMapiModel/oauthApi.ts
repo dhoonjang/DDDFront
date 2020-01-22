@@ -2,7 +2,7 @@ import { IApiReturn } from "..";
 import { apiAgent } from "../../apiAgent";
 
 export type TLoginApiParameter = Parameters<typeof oauthApi>;
-export interface ILoginApiReturn extends IApiReturn {
+export interface IOAuthApiReturn extends IApiReturn {
   oauthToken?: string;
 }
 
@@ -10,7 +10,7 @@ const oauthApi = async (
   client_id: string,
   redirect_uri: string,
   code: string
-): Promise<ILoginApiReturn> => {
+): Promise<IOAuthApiReturn> => {
   const { post } = apiAgent(false);
   const res = await post("https://kauth.kakao.com/oauth/token", {
     grant_type: "authorization_code",

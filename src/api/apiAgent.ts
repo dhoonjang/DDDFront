@@ -1,50 +1,63 @@
 import axios, { AxiosInstance } from "axios";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
 import qs from "query-string";
 import { errorHandler } from "../control/controlError";
+import { ETokenCategory, getToken } from "../control/controlToken";
 import { makeGetUrl } from "../control/controlUrl";
+import { baseURL, refreshAuthLogic } from "./apiFuncs";
 
-const baseURL = "https://api.ddakdae.com";
-
-export enum ERequestType {
-  post = "POST",
-  get = "GET",
-  put = "PUT",
-  delete = "DELETE"
-}
-
-export const MapiInstance: AxiosInstance = axios.create({
-  baseURL
-});
-export const NMapiInstance: AxiosInstance = axios.create({
-  baseURL
-});
+export const createFetchClient = (auth: boolean) => {
+  const apiInstance: AxiosInstance = axios.create({
+    baseURL
+  });
+  if (auth) {
+    createAuthRefreshInterceptor(apiInstance, refreshAuthLogic);
+    apiInstance.interceptors.request.use(
+      request => {
+        console.log(request);
+        request.headers.Authorization = `Bearer ${getToken(
+          ETokenCategory.accessToken
+        )}`;
+        return request;
+      },
+      error => Promise.reject(error)
+    );
+  } else {
+    apiInstance.interceptors.request.use(
+      request => {
+        console.log(request);
+        return request;
+      },
+      error => {
+        console.log(error);
+        return Promise.reject(error);
+      }
+    );
+  }
+  return apiInstance;
+};
 
 export const apiAgent = (auth: boolean) => {
-  let Request = NMapiInstance;
-  if (auth) {
-    Request = MapiInstance;
-  }
+  const fetchClient: AxiosInstance = createFetchClient(auth);
   const post = async (url: string, data?: any): Promise<any> => {
     let res;
     try {
-      res = await Request.post(url, qs.stringify(data));
+      res = await fetchClient.post(url, qs.stringify(data));
     } catch (err) {
       return errorHandler(err);
     }
     return res;
   };
-
   const get = async (url: string, params?: any): Promise<any> => {
     const getUrl = makeGetUrl(baseURL, url, params);
     let res;
     try {
-      res = await Request.get(getUrl);
+      res = await fetchClient.get(getUrl);
     } catch (err) {
       return errorHandler(err);
     }
     return res;
   };
-
   return { post, get };
 };
 
