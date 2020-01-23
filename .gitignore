@@ -24,5 +24,4 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/src/img/*@2x.png
-/src/img/*@3x.png
+/.subdata
