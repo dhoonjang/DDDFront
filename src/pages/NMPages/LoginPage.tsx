@@ -24,18 +24,17 @@ const LoginPage: React.FC = () => {
         `${origin}/login`,
         String(code)
       );
-      console.log(oauthRes);
       if (oauthRes.success && oauthRes.oauthToken) {
         const loginRes: ILoginApiReturn = await loginApi(oauthRes.oauthToken);
         if (loginRes.success) {
           if (loginRes.joinRequired) {
             setToken(ETokenCategory.oauthToken, oauthRes.oauthToken);
-            RouteUrlMove(history, "/join");
+            return RouteUrlMove(history, "/join");
           } else if (loginRes.accessToken && loginRes.refreshToken) {
             setToken(ETokenCategory.accessToken, loginRes.accessToken);
             setToken(ETokenCategory.refreshToken, loginRes.refreshToken);
             if (authorized()) {
-              RouteUrlMove(history, "/");
+              return RouteUrlMove(history, "/");
             }
           }
         }

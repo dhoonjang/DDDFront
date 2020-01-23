@@ -1,5 +1,7 @@
 import { IApiReturn } from "..";
+import { checkProductOrigin } from "../../../control/controlUrl";
 import { apiAgent } from "../../apiAgent";
+import { momDefaultRes } from "../../apiDefaultRes";
 
 export type TMomApiParameter = Parameters<typeof momApi>;
 export interface IMomApiReturn extends IApiReturn {
@@ -25,6 +27,9 @@ const momApi = async (): Promise<IMomApiReturn> => {
     return {
       success: true
     };
+  }
+  if (!checkProductOrigin()) {
+    return momDefaultRes;
   }
   return { success: false };
 };

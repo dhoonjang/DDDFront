@@ -28,10 +28,7 @@ export const createFetchClient = (auth: boolean) => {
         console.log(request);
         return request;
       },
-      error => {
-        console.log(error);
-        return Promise.reject(error);
-      }
+      error => Promise.reject(error)
     );
   }
   return apiInstance;

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import RedirectHome from "../components/RedirectHome";
+import { RedirectHome } from "../components/simpleComponents";
 import { BoardPage, MainPage } from "../pages";
 
 const MRouter: React.FC = () => {

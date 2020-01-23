@@ -19,6 +19,15 @@ export function ReloadUrlMove(path?: string): void {
   }
 }
 
+export function checkProductOrigin(): boolean {
+  const origin = window.location.origin;
+  console.log(origin);
+  if (origin === "https://ddakdae.com") {
+    return true;
+  }
+  return false;
+}
+
 export function getUrlInfo() {
   const protocol = window.location.protocol;
   const host = window.location.host;

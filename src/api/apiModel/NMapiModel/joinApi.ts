@@ -1,5 +1,7 @@
 import { IApiReturn } from "..";
+import { checkProductOrigin } from "../../../control/controlUrl";
 import { apiAgent } from "../../apiAgent";
+import { joinDefaultRes } from "../../apiDefaultRes";
 
 export type TJoinApiParameter = Parameters<typeof joinApi>;
 export interface IJoinApiReturn extends IApiReturn {
@@ -29,6 +31,12 @@ const joinApi = async (
       refreshToken: res.data.refresh_token
     };
   }
+
+  if (!checkProductOrigin()) {
+    console.log("default res");
+    return joinDefaultRes;
+  }
+
   return { success: false };
 };
 

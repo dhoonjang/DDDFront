@@ -1,5 +1,7 @@
 import { IApiReturn } from "..";
+import { checkProductOrigin } from "../../../control/controlUrl";
 import { apiAgent } from "../../apiAgent";
+import { loginDefaultRes } from "../../apiDefaultRes";
 
 export type TLoginApiParameter = Parameters<typeof loginApi>;
 export interface ILoginApiReturn extends IApiReturn {
@@ -23,6 +25,12 @@ const loginApi = async (oauth_token: string): Promise<ILoginApiReturn> => {
       joinRequired: true
     };
   }
+
+  if (!checkProductOrigin()) {
+    console.log("default res");
+    return loginDefaultRes;
+  }
+
   return { success: false };
 };
 

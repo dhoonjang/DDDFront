@@ -1,0 +1,19 @@
+html,
+body,
+div {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+img {
+  width: min-content;
+  height: min-content;
+}
+
+.App {
+  width: 100%;
+  margin-top: 84px;
+}

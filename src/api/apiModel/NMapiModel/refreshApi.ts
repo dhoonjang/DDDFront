@@ -1,13 +1,17 @@
 import { IApiReturn } from "..";
+import { checkProductOrigin } from "../../../control/controlUrl";
 import { apiAgent } from "../../apiAgent";
+import { refreshDefaultRes } from "../../apiDefaultRes";
 import { refreshAuthLogic } from "../../apiFuncs";
 
 export type TLoginApiParameter = Parameters<typeof refreshAuthLogic>;
-export interface ILoginApiReturn extends IApiReturn {
+export interface IRefreshApiReturn extends IApiReturn {
   accessToken?: string;
 }
 
-const refreshApi = async (refresh_token: string): Promise<ILoginApiReturn> => {
+const refreshApi = async (
+  refresh_token: string
+): Promise<IRefreshApiReturn> => {
   const { post } = apiAgent(false);
   const res = await post("/refresh", {
     refresh_token
@@ -17,6 +21,9 @@ const refreshApi = async (refresh_token: string): Promise<ILoginApiReturn> => {
       success: true,
       accessToken: res.data.access_token
     };
+  }
+  if (!checkProductOrigin) {
+    return refreshDefaultRes;
   }
   return { success: false };
 };
