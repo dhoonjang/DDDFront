@@ -1,6 +1,6 @@
 import qs from "query-string";
 import React, { useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { loginApi, oauthApi } from "../../api/apiModel";
 import { ILoginApiReturn } from "../../api/apiModel/NMapiModel/loginApi";
 import { IOAuthApiReturn } from "../../api/apiModel/NMapiModel/oauthApi";
@@ -49,7 +49,6 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="LoginPage">
-      <Link to="/">Home</Link> <Link to="/join">Join</Link>
       {isLogging ? (
         <div>
           <h2>LOGGING...</h2>

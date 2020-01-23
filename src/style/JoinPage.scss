@@ -1,0 +1,97 @@
+.JoinPage {
+  .imessage {
+    width: 435px;
+    margin-left: calc(50vw - (435 * 0.5px));
+    position: fixed;
+    top: 136px;
+    z-index: 2;
+    transition-property: top;
+    transition-duration: 1.5s;
+    transition-timing-function: ease;
+    &.INITIAL {
+      top: 272px;
+    }
+  }
+  .area {
+    width: 50vw;
+    height: calc(100vh - 84px);
+    background-size: cover;
+    background-position-y: center;
+    background-position-x: center;
+    position: relative;
+    transition-property: width;
+    transition-duration: 2s;
+    transition-timing-function: ease;
+    .cover {
+      position: absolute;
+      background-color: #333;
+      opacity: 0.8;
+      width: 100%;
+      height: 100%;
+      transition-property: opacity;
+      transition-duration: 1s;
+      top: 0;
+      left: 0;
+      &.--focus {
+        opacity: 0.4;
+      }
+    }
+    button {
+      position: absolute;
+      z-index: 2;
+      border: 0px;
+      width: 260px;
+      height: 70px;
+      font-size: 16px;
+      top: 376px;
+    }
+    .ex {
+      position: absolute;
+      z-index: 2;
+      width: 50vw;
+      text-align: center;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+      top: 470px;
+    }
+    &.STUDENT,
+    &.TUTOR {
+      .cover {
+        opacity: 0.6;
+      }
+      button,
+      .ex {
+        display: none;
+      }
+    }
+    &.INITIAL {
+      transition: unset;
+    }
+  }
+  .student-area {
+    float: left;
+    background-image: url("../img/join-student-img.png");
+    button {
+      margin-left: calc(25vw - (260 * 0.5px));
+    }
+    &.STUDENT {
+      width: 100vw;
+    }
+    &.TUTOR {
+      display: none;
+    }
+  }
+  .tutor-area {
+    float: right;
+    background-image: url("../img/join-tutor-img.png");
+    button {
+      margin-left: calc(25vw - (260 * 0.5px));
+    }
+    &.TUTOR {
+      width: 100vw;
+    }
+    &.STUDENT {
+      display: none;
+    }
+  }
+}

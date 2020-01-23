@@ -1,6 +1,7 @@
 import React from "react";
 import { BlockImg } from "../../components/simpleComponents";
 import { getUrlInfo, makeGetUrl } from "../../control/controlUrl";
+import firstpageTitle from "../../img/firstpage-title.png";
 import kakaoLoginBtn from "../../img/kakao-account-login-btn.png";
 import "../../style/FirstPage.scss";
 
@@ -21,9 +22,9 @@ const FirstPage: React.FC = () => {
   return (
     <div className="FirstPage">
       <div className="sub-title">야, 대학</div>
-      <div className="main-title">딱 대.</div>
+      <BlockImg className="ititle" src={firstpageTitle} />
       <a href={kakaoGrantUrl}>
-        <BlockImg className="kakao-login-btn" src={kakaoLoginBtn} />
+        <BlockImg className="ikakao-login-btn" src={kakaoLoginBtn} />
       </a>
     </div>
   );
