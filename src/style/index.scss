@@ -8,6 +8,12 @@ div {
   vertical-align: baseline;
 }
 
+button,
+input {
+  border: 0;
+  background-color: #fff;
+}
+
 img {
   width: min-content;
   height: min-content;

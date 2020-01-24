@@ -12,9 +12,9 @@ export interface IJoinApiReturn extends IApiReturn {
 const joinApi = async (
   oauth_token: string,
   user_kind: string,
-  sex: number,
+  sex: string,
   hs: string,
-  grade: number
+  grade: string
 ): Promise<IJoinApiReturn> => {
   const { post } = apiAgent(false);
   const res = await post("/join/kakao", {

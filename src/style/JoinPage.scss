@@ -1,3 +1,65 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.JoinForm {
+  color: #fff;
+  font-size: 14px;
+  position: fixed;
+  margin-left: calc(50vw - (662 * 0.5px));
+  animation: fadein 2s linear 1.5s 1 both;
+  top: 240px;
+  z-index: 2;
+  width: 662px;
+  .student-form {
+    .gender-select,
+    .grade-select {
+      display: flex;
+      margin-top: 19px;
+      margin-bottom: 48px;
+      button {
+        width: 107px;
+        height: 37px;
+        margin-right: 15px;
+        opacity: 0.5;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      &.--man .man,
+      &.--woman .woman,
+      &.--one .one,
+      &.--two .two,
+      &.--three .three,
+      &.--else .else {
+        opacity: 1;
+      }
+    }
+    .grade-select {
+      margin-bottom: 96px;
+    }
+    input {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 48px;
+      font-size: 13px;
+      width: 642px;
+      height: 36px;
+      padding-left: 20px;
+    }
+    .submit {
+      width: 130px;
+      height: 40px;
+      margin-left: calc((662 - 130) * 0.5px);
+    }
+  }
+}
+
 .JoinPage {
   .imessage {
     width: 435px;
@@ -38,6 +100,7 @@
     }
     button {
       position: absolute;
+      background-color: #fff;
       z-index: 2;
       border: 0px;
       width: 260px;
@@ -78,7 +141,7 @@
       width: 100vw;
     }
     &.TUTOR {
-      display: none;
+      width: 0vw;
     }
   }
   .tutor-area {
@@ -91,7 +154,7 @@
       width: 100vw;
     }
     &.STUDENT {
-      display: none;
+      width: 0vw;
     }
   }
 }
