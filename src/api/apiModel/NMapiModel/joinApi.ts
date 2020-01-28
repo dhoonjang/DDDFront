@@ -1,12 +1,15 @@
 import { IApiReturn } from "..";
-import { checkProductOrigin } from "../../../control/controlUrl";
+import { checkProductOrigin } from "../../../tool/urlTool";
 import { apiAgent } from "../../apiAgent";
 import { joinDefaultRes } from "../../apiDefaultRes";
 
 export type TJoinApiParameter = Parameters<typeof joinApi>;
 export interface IJoinApiReturn extends IApiReturn {
-  accessToken?: string;
-  refreshToken?: string;
+  data?: {
+    accessToken: string;
+    refreshToken: string;
+    userStatus: string;
+  };
 }
 
 const joinApi = async (
@@ -27,8 +30,11 @@ const joinApi = async (
   if (res.status === 200) {
     return {
       success: true,
-      accessToken: res.data.access_token,
-      refreshToken: res.data.refresh_token
+      data: {
+        accessToken: res.data.access_token,
+        refreshToken: res.data.refresh_token,
+        userStatus: res.data.user_status
+      }
     };
   }
 

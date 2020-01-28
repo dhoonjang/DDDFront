@@ -1,6 +1,6 @@
 import { action, observable } from "mobx";
-import { clearLocal } from "../../control/controlLocal";
-import { ETokenCategory, getToken } from "../../control/controlToken";
+import { clearLocal } from "../../tool/localTool";
+import { ETokenCategory, getToken } from "../../tool/tokenTool";
 
 class AuthStore {
   public static getInstance(): AuthStore {
@@ -19,7 +19,7 @@ class AuthStore {
   private constructor() {}
 
   @action
-  public authorized(path?: string): boolean {
+  public authorized(): boolean {
     const accessToken: string | null = getToken(ETokenCategory.accessToken);
     const refreshToken: string | null = getToken(ETokenCategory.refreshToken);
     if (accessToken && refreshToken) {
@@ -30,7 +30,7 @@ class AuthStore {
   }
 
   @action
-  public unAuthorized(path?: string): void {
+  public unAuthorized(): void {
     clearLocal();
     this.authenticated = false;
   }

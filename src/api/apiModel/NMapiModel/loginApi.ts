@@ -1,12 +1,15 @@
 import { IApiReturn } from "..";
-import { checkProductOrigin } from "../../../control/controlUrl";
+import { checkProductOrigin } from "../../../tool/urlTool";
 import { apiAgent } from "../../apiAgent";
 import { loginDefaultRes } from "../../apiDefaultRes";
 
 export type TLoginApiParameter = Parameters<typeof loginApi>;
 export interface ILoginApiReturn extends IApiReturn {
-  accessToken?: string;
-  refreshToken?: string;
+  data?: {
+    accessToken: string;
+    refreshToken: string;
+    userStatus: string;
+  };
   joinRequired?: boolean;
 }
 
@@ -16,8 +19,11 @@ const loginApi = async (oauth_token: string): Promise<ILoginApiReturn> => {
   if (res.status === 200) {
     return {
       success: true,
-      accessToken: res.data.access_token,
-      refreshToken: res.data.refresh_token
+      data: {
+        accessToken: res.data.access_token,
+        refreshToken: res.data.refresh_token,
+        userStatus: res.data.user_status
+      }
     };
   } else if (res.status === 301) {
     return {

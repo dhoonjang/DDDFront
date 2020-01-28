@@ -3,7 +3,7 @@
   margin: 0;
   padding-left: 160px;
   height: calc(100vh - 84px);
-  :after {
+  .body-content:after {
     background-image: url("../img/firstpage-background.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,7 +12,7 @@
     top: 0;
     left: 0;
     position: absolute;
-    opacity: 0.1 !important;
+    opacity: 0.2 !important;
     z-index: -1;
     content: "";
     width: 100%;

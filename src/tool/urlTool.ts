@@ -21,7 +21,7 @@ export function ReloadUrlMove(path?: string): void {
 
 export function checkProductOrigin(): boolean {
   const origin = window.location.origin;
-  console.log(origin);
+
   if (origin === "https://ddakdae.com") {
     return true;
   }

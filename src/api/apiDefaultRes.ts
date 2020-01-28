@@ -15,8 +15,11 @@ export const loginDefaultRes: ILoginApiReturn = {
 
 export const joinDefaultRes: IJoinApiReturn = {
   success: true,
-  accessToken: "default_access_token",
-  refreshToken: "default_refresh_token"
+  data: {
+    accessToken: "default_access_token",
+    refreshToken: "default_refresh_token",
+    userStatus: "00"
+  }
 };
 
 export const momDefaultRes: IMomApiReturn = {

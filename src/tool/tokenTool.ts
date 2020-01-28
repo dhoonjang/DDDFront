@@ -1,4 +1,4 @@
-import { getLocalItem, setLocalItem } from "./controlLocal";
+import { getLocalItem, setLocalItem } from "./localTool";
 
 export enum ETokenCategory {
   oauthToken = "OAUTH_TOKEN",

@@ -27,8 +27,15 @@ export function useAuthAction() {
 export function useUserData() {
   const { user } = useStores();
   return useObserver(() => ({
-    userId: user.id,
     userName: user.name,
-    userState: user.status
+    userStatus: user.status
   }));
+}
+
+export function useUserAction() {
+  const { user } = useStores();
+  return {
+    setUserStatus: (status: string) => user.setUserStatus(status),
+    setUserName: (name: string) => user.setUserName(name)
+  };
 }

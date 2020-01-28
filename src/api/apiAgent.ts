@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import qs from "query-string";
-import { errorHandler } from "../control/controlError";
-import { ETokenCategory, getToken } from "../control/controlToken";
-import { makeGetUrl } from "../control/controlUrl";
+import { errorHandler } from "../tool/errorTool";
+import { ETokenCategory, getToken } from "../tool/tokenTool";
+import { makeGetUrl } from "../tool/urlTool";
 import { baseURL, refreshAuthLogic } from "./apiFuncs";
 
 export const createFetchClient = (auth: boolean) => {

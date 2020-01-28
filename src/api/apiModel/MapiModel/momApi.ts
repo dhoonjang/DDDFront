@@ -1,5 +1,5 @@
 import { IApiReturn } from "..";
-import { checkProductOrigin } from "../../../control/controlUrl";
+import { checkProductOrigin } from "../../../tool/urlTool";
 import { apiAgent } from "../../apiAgent";
 import { momDefaultRes } from "../../apiDefaultRes";
 

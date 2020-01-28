@@ -1,6 +1,6 @@
 import md5 from "md5";
 import { useEffect, useState } from "react";
-import { ETokenCategory, getToken, setToken } from "../control/controlToken";
+import { ETokenCategory, getToken, setToken } from "../tool/tokenTool";
 import { refreshApi } from "./apiModel";
 
 export const baseURL = "http://api.ddakdae.com";
