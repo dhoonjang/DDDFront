@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { joinApi } from "../api/apiModel";
 import { EJoinState } from "../pages/NMPages/JoinPage";
+import { clearLocal } from "../tool/localTool";
 import { ETokenCategory, setToken } from "../tool/tokenTool";
 import { IHistory } from "../tool/urlTool";
 
@@ -26,6 +27,7 @@ const JoinForm: React.FC<IJoinFormProps> = ({
     if (oauth_token) {
       const res = await joinApi(oauth_token, joinState, gender, hs, grade);
       if (res.success && res.data) {
+        clearLocal();
         setToken(ETokenCategory.accessToken, res.data.accessToken);
         setToken(ETokenCategory.refreshToken, res.data.refreshToken);
         setUserStatus(res.data.userStatus);

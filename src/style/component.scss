@@ -1,13 +1,20 @@
 .Header {
   top: 0;
   left: 0;
-  padding-left: 160px;
   position: fixed;
+  background-color: #fff;
   width: 100%;
   height: 84px;
-  display: flex;
-  align-items: center;
-  .iddakdae-logo {
-    height: min-content;
+  .header-flex {
+    margin: 0 auto;
+    width: 85%;
+    max-width: 900px;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .iddakdae-logo {
+      height: min-content;
+    }
   }
 }

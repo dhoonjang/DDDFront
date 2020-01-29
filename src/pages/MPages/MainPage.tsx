@@ -15,12 +15,11 @@ const MainPage: React.FC = () => {
   console.log(momData);
   return (
     <div className="MainPage">
-      <Header />
+      <Header unAuthorized={unAuthorized} />
       <h2>Main Page</h2>
       <br />
       <Link to="/board">Board</Link>
       <br />
-      <button onClick={unAuthorized}>Log Out</button>
     </div>
   );
 };

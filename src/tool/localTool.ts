@@ -1,3 +1,7 @@
+export enum ElocakItemsKey {
+  userStatus = "USER_STATUS"
+}
+
 export function getLocalItem(key: string): string | null {
   return window.localStorage.getItem(key);
 }

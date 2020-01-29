@@ -2,6 +2,7 @@ import React from "react";
 import { loginApi, oauthApi } from "../api/apiModel";
 import { ILoginApiReturn } from "../api/apiModel/NMapiModel/loginApi";
 import { IOAuthApiReturn } from "../api/apiModel/NMapiModel/oauthApi";
+import { clearLocal } from "../tool/localTool";
 import { ETokenCategory, setToken } from "../tool/tokenTool";
 import { getUrlInfo, IHistory, RouteUrlMove } from "../tool/urlTool";
 
@@ -36,6 +37,7 @@ const LoginRequest: React.FC<ILoginRequestProps> = ({
             setToken(ETokenCategory.oauthToken, oauthRes.oauthToken);
             return RouteUrlMove(history, "/join");
           } else if (loginRes.data) {
+            clearLocal();
             setToken(ETokenCategory.accessToken, loginRes.data.accessToken);
             setToken(ETokenCategory.refreshToken, loginRes.data.refreshToken);
             setUserStatus(loginRes.data.userStatus);
