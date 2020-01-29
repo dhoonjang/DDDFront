@@ -6,7 +6,7 @@ import { TMomApiParameter } from "../../api/apiModel/MapiModel/momApi";
 import Header from "../../components/Header";
 import { useAuthAction } from "../../store/storeFuncs";
 
-const MainPage: React.FC = () => {
+const MomPage: React.FC = () => {
   const { unAuthorized } = useAuthAction();
 
   const momApiParameter: TMomApiParameter = [];
@@ -24,4 +24,4 @@ const MainPage: React.FC = () => {
   );
 };
 
-export default MainPage;
+export default MomPage;
