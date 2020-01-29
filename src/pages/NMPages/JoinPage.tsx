@@ -39,7 +39,7 @@ const JoinPage: React.FC = () => {
         authorized={authorized}
         token={token ? token : "not_token"}
       />
-      <div className={`area student-area ${joinState}`}>
+      <div className={`area student-area ${joinState} ${studentFocus}`}>
         <button onClick={() => setJoinState(EJoinState.student)}>
           입시를 준비하는 학생
         </button>
@@ -52,7 +52,7 @@ const JoinPage: React.FC = () => {
           }}
         />
       </div>
-      <div className={`area tutor-area ${joinState}`}>
+      <div className={`area tutor-area ${joinState} ${tutorFocus}`}>
         <button onClick={() => setJoinState(EJoinState.tutor)}>
           학생을 도와줄 튜터
         </button>
