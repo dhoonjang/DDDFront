@@ -22,7 +22,7 @@ const refreshApi = async (
       accessToken: res.data.access_token
     };
   }
-  if (!checkProductOrigin) {
+  if (!checkProductOrigin()) {
     return refreshDefaultRes;
   }
   return { success: false };

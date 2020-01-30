@@ -39,7 +39,6 @@ const joinApi = async (
   }
 
   if (!checkProductOrigin()) {
-    console.log("default res");
     return joinDefaultRes;
   }
 

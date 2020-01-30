@@ -39,31 +39,33 @@ const JoinPage: React.FC = () => {
         authorized={authorized}
         token={token ? token : "not_token"}
       />
-      <div className={`area student-area ${joinState} ${studentFocus}`}>
-        <button onClick={() => setJoinState(EJoinState.student)}>
-          입시를 준비하는 학생
-        </button>
-        <div className="ex">ex) 고등학교 1~3학년, N수생</div>
-        <div
-          className={`cover ${studentFocus}`}
-          onMouseOver={() => {
-            setStudentFocus("--focus");
-            setTutorFocus("");
-          }}
-        />
-      </div>
-      <div className={`area tutor-area ${joinState} ${tutorFocus}`}>
-        <button onClick={() => setJoinState(EJoinState.tutor)}>
-          학생을 도와줄 튜터
-        </button>
-        <div className="ex">ex) 학부모, 선생님</div>
-        <div
-          className={`cover ${tutorFocus}`}
-          onMouseOver={() => {
-            setTutorFocus("--focus");
-            setStudentFocus("");
-          }}
-        />
+      <div className="join-area">
+        <div className={`area student-area ${joinState} ${studentFocus}`}>
+          <button onClick={() => setJoinState(EJoinState.student)}>
+            입시를 준비하는 학생
+          </button>
+          <div className="ex">ex) 고등학교 1~3학년, N수생</div>
+          <div
+            className={`cover ${studentFocus}`}
+            onMouseOver={() => {
+              setStudentFocus("-focus");
+              setTutorFocus("");
+            }}
+          />
+        </div>
+        <div className={`area tutor-area ${joinState} ${tutorFocus}`}>
+          <button onClick={() => setJoinState(EJoinState.tutor)}>
+            학생을 도와줄 튜터
+          </button>
+          <div className="ex">ex) 학부모, 선생님</div>
+          <div
+            className={`cover ${tutorFocus}`}
+            onMouseOver={() => {
+              setTutorFocus("-focus");
+              setStudentFocus("");
+            }}
+          />
+        </div>
       </div>
     </div>
   );

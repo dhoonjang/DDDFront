@@ -18,9 +18,9 @@ const JoinForm: React.FC<IJoinFormProps> = ({
   authorized,
   setUserStatus
 }) => {
-  const [gender, setGender] = useState("--man");
+  const [gender, setGender] = useState("-man");
   const [hs, setHs] = useState("");
-  const [grade, setGrade] = useState("--one");
+  const [grade, setGrade] = useState("-one");
 
   const joinFunc = async () => {
     const oauth_token = token;
@@ -48,10 +48,10 @@ const JoinForm: React.FC<IJoinFormProps> = ({
         <div className="student-form">
           성별
           <div className={`gender-select ${gender}`}>
-            <button className="man" onClick={() => setGender("--man")}>
+            <button className="man" onClick={() => setGender("-man")}>
               남자
             </button>
-            <button className="woman" onClick={() => setGender("--woman")}>
+            <button className="woman" onClick={() => setGender("-woman")}>
               여자
             </button>
           </div>
@@ -63,16 +63,16 @@ const JoinForm: React.FC<IJoinFormProps> = ({
           />
           학년 선택
           <div className={`grade-select ${grade}`}>
-            <button className="one" onClick={() => setGrade("--one")}>
+            <button className="one" onClick={() => setGrade("-one")}>
               1학년
             </button>
-            <button className="two" onClick={() => setGrade("--two")}>
+            <button className="two" onClick={() => setGrade("-two")}>
               2학년
             </button>
-            <button className="three" onClick={() => setGrade("--three")}>
+            <button className="three" onClick={() => setGrade("-three")}>
               3학년
             </button>
-            <button className="else" onClick={() => setGrade("--else")}>
+            <button className="else" onClick={() => setGrade("-else")}>
               기타
             </button>
           </div>

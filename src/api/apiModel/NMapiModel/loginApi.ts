@@ -33,7 +33,6 @@ const loginApi = async (oauth_token: string): Promise<ILoginApiReturn> => {
   }
 
   if (!checkProductOrigin()) {
-    console.log("default res");
     return loginDefaultRes;
   }
 
