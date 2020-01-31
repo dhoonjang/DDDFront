@@ -1,31 +1,42 @@
 import { IApiReturn } from "..";
-import { IToken, makeToken } from "../../../control/controlToken";
+import { checkProductOrigin } from "../../../tool/urlTool";
 import { apiAgent } from "../../apiAgent";
+import { loginDefaultRes } from "../../apiDefaultRes";
 
 export type TLoginApiParameter = Parameters<typeof loginApi>;
 export interface ILoginApiReturn extends IApiReturn {
-  token: IToken | null;
+  data?: {
+    accessToken: string;
+    refreshToken: string;
+    userStatus: string;
+  };
   joinRequired?: boolean;
 }
 
-const loginApi = async (code: string): Promise<ILoginApiReturn> => {
-  const { get } = apiAgent();
-  const res = await get("/login/kakao", { code });
-  if (res.code === 200) {
-    const token = makeToken(res.access_token, res.refresh_token);
+const loginApi = async (oauth_token: string): Promise<ILoginApiReturn> => {
+  const { get } = apiAgent(false);
+  const res = await get("/login/kakao", { oauth_token });
+  if (res.status === 200) {
     return {
       success: true,
-      token
+      data: {
+        accessToken: res.data.access_token,
+        refreshToken: res.data.refresh_token,
+        userStatus: res.data.user_status
+      }
     };
-  } else if (res.code === 301) {
-    const semiToken = makeToken(res.access_token);
+  } else if (res.status === 301) {
     return {
-      success: false,
-      token: semiToken,
+      success: true,
       joinRequired: true
     };
   }
-  return { success: false, token: null };
+
+  if (!checkProductOrigin()) {
+    return loginDefaultRes;
+  }
+
+  return { success: false };
 };
 
 export default loginApi;

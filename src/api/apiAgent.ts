@@ -1,56 +1,68 @@
-import { errorHandler } from "../control/controlError";
-import { IToken, refreshAccessToken } from "../control/controlToken";
-import { makeGetUrl } from "../control/controlUrl";
+import axios, { AxiosInstance } from "axios";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
+import qs from "query-string";
+import { errorHandler } from "../tool/errorTool";
+import { ETokenCategory, getToken } from "../tool/tokenTool";
+import { makeGetUrl } from "../tool/urlTool";
+import { baseURL, refreshAuthLogic } from "./apiFuncs";
 
-const baseUrl = "https://api.ddakdae.com";
+export const createFetchClient = (auth: boolean) => {
+  const apiInstance: AxiosInstance = axios.create({
+    baseURL
+  });
+  if (auth) {
+    createAuthRefreshInterceptor(apiInstance, refreshAuthLogic);
+    apiInstance.interceptors.request.use(
+      request => {
+        console.log(request);
+        request.headers.Authorization = `Bearer ${getToken(
+          ETokenCategory.accessToken
+        )}`;
+        return request;
+      },
+      error => Promise.reject(error)
+    );
+  } else {
+    apiInstance.interceptors.request.use(
+      request => {
+        console.log(request);
+        return request;
+      },
+      error => Promise.reject(error)
+    );
+  }
+  return apiInstance;
+};
 
-export enum ERequestType {
-  post = "POST",
-  get = "GET",
-  put = "PUT",
-  delete = "DELETE"
-}
-
-export const apiAgent = (tokenCode?: string) => {
-  const post = async (url: string, data: any): Promise<any> => {
+export const apiAgent = (auth: boolean) => {
+  const fetchClient: AxiosInstance = createFetchClient(auth);
+  const post = async (url: string, data?: any): Promise<any> => {
     let res;
     try {
-      res = await fetch(baseUrl + url, {
-        method: ERequestType.post,
-        headers: {
-          Authorization: `Bearer ${tokenCode}`
-        },
-        body: JSON.stringify(data)
-      });
+      res = await fetchClient.post(url, qs.stringify(data));
     } catch (err) {
       return errorHandler(err);
     }
-    return res.json;
+    return res;
   };
-
   const get = async (url: string, params?: any): Promise<any> => {
-    const getUrl = makeGetUrl(baseUrl, url, params);
+    const getUrl = makeGetUrl(baseURL, url, params);
     let res;
     try {
-      res = await fetch(getUrl, {
-        method: ERequestType.get,
-        headers: {
-          Authorization: `Bearer ${tokenCode}`
-        }
-      });
+      res = await fetchClient.get(getUrl);
     } catch (err) {
       return errorHandler(err);
     }
-    return res.json;
+    return res;
   };
-
   return { post, get };
 };
 
+/*
 export const authApiAgent = (token: IToken) => {
   const accessAgent = apiAgent(token.accessToken);
 
-  const post = async (url: string, data: any): Promise<any> => {
+  const post = async (url: string, data?: any): Promise<any> => {
     let res = await accessAgent.post(url, data);
     if (res.code === 401) {
       const refreshedToken = await refreshAccessToken(token);
@@ -73,5 +85,7 @@ export const authApiAgent = (token: IToken) => {
     }
     return res;
   };
+
   return { post, get };
 };
+*/

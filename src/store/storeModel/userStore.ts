@@ -1,4 +1,9 @@
 import { action, observable } from "mobx";
+import {
+  ElocakItemsKey,
+  getLocalItem,
+  setLocalItem
+} from "../../tool/localTool";
 
 class UserStore {
   public static getInstance(): UserStore {
@@ -11,7 +16,9 @@ class UserStore {
   private static instance: UserStore;
 
   @observable public name: string | null = null;
-  @observable public status: string | null = null;
+  @observable public status: string | null = getLocalItem(
+    ElocakItemsKey.userStatus
+  );
   @observable public highSchool: string | null = null;
   @observable public grade: number | null = null;
 
@@ -24,6 +31,7 @@ class UserStore {
 
   @action
   public setUserStatus(status: string) {
+    setLocalItem(ElocakItemsKey.userStatus, status);
     this.status = status;
   }
 

@@ -6,6 +6,8 @@
     "no-console": false,
     "object-literal-sort-keys": false,
     "no-unused-vars": true,
-    "variable-name": false
+    "variable-name": false,
+    "jsx-no-lambda": false,
+    "no-string-literal": false
   }
 }

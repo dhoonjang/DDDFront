@@ -1,6 +1,7 @@
 import { IApiReturn } from "..";
-import { IToken } from "../../../control/controlToken";
-import { authApiAgent } from "../../apiAgent";
+import { checkProductOrigin } from "../../../tool/urlTool";
+import { apiAgent } from "../../apiAgent";
+import { momDefaultRes } from "../../apiDefaultRes";
 
 export type TMomApiParameter = Parameters<typeof momApi>;
 export interface IMomApiReturn extends IApiReturn {
@@ -19,17 +20,16 @@ export interface IMomApiReturn extends IApiReturn {
   };
 }
 
-const momApi = async (token: IToken): Promise<IMomApiReturn> => {
-  const { post } = authApiAgent(token);
-  const res = await post("/mom", {});
-  if (res.code === 200) {
+const momApi = async (): Promise<IMomApiReturn> => {
+  const { post } = apiAgent(true);
+  const res = await post("/mom");
+  if (res.status === 200) {
     return {
       success: true
     };
-  } else if (res.code === 301) {
-    return {
-      success: false
-    };
+  }
+  if (!checkProductOrigin()) {
+    return momDefaultRes;
   }
   return { success: false };
 };

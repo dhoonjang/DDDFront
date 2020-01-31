@@ -1,34 +1,47 @@
 import { IApiReturn } from "..";
-import { IToken, makeToken } from "../../../control/controlToken";
+import { checkProductOrigin } from "../../../tool/urlTool";
 import { apiAgent } from "../../apiAgent";
+import { joinDefaultRes } from "../../apiDefaultRes";
 
 export type TJoinApiParameter = Parameters<typeof joinApi>;
 export interface IJoinApiReturn extends IApiReturn {
-  token?: IToken;
+  data?: {
+    accessToken: string;
+    refreshToken: string;
+    userStatus: string;
+  };
 }
 
 const joinApi = async (
-  semiToken: IToken,
+  oauth_token: string,
   user_kind: string,
-  sex: number,
+  sex: string,
   hs: string,
-  grade: number
+  grade: string
 ): Promise<IJoinApiReturn> => {
-  const { post } = apiAgent();
+  const { post } = apiAgent(false);
   const res = await post("/join/kakao", {
-    access_token: semiToken.accessToken,
+    oauth_token,
     user_kind,
     hs,
     sex,
     grade
   });
-  if (res.code === 200) {
-    const token = makeToken(res.data.access_token, res.data.refresh_token);
+  if (res.status === 200) {
     return {
       success: true,
-      token
+      data: {
+        accessToken: res.data.access_token,
+        refreshToken: res.data.refresh_token,
+        userStatus: res.data.user_status
+      }
     };
   }
+
+  if (!checkProductOrigin()) {
+    return joinDefaultRes;
+  }
+
   return { success: false };
 };
 

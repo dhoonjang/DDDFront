@@ -1,45 +1,62 @@
 stages:
-  - build
   - test
+  - build
   - deploy
+
+cache:
+  paths:
+    - node_modules/
+    - .yarn
+
+test:
+  image: node:latest
+  stage: test
+  before_script:
+    - apt-get update -qq && apt-get install
+    - yarn config set cache-folder .yarn
+    - yarn install
+    - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
+    - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
+  script:
+    - yarn test
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" ||  $CI_COMMIT_REF_NAME == "dev"
+      when: always
 
 build/product:
   image: node:latest
   stage: build
   before_script:
     - apt-get update -qq && apt-get install
+    - yarn config set cache-folder .yarn
     - yarn install
+    - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
+    - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
     - yarn build
   artifacts:
     paths:
       - build
   rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" || $CI_COMMIT_REF_NAME == "master"
-      when: always
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      when: on_success
 
 build/proto:
   image: node:latest
   stage: build
   before_script:
     - apt-get update -qq && apt-get install
+    - yarn config set cache-folder .yarn
     - yarn install
+    - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
+    - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
     - yarn build
   artifacts:
     paths:
       - build
   rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev" || $CI_COMMIT_REF_NAME == "dev"
-      when: always
-
-test:
-  image: node:latest
-  stage: test
-  script:
-    - echo 'test'
-  rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+    - if: $CI_COMMIT_REF_NAME == "dev"
       when: on_success
 
 deploy/product:
@@ -48,23 +65,27 @@ deploy/product:
   variables:
     S3_BUCKET_NAME: ddakdae-client
     CF_DISTRIBUTION_ID: E1UCZ1564QEQI0
-  script:
+  before_script:
     - pip install awscli
+  script:
     - aws s3 sync build s3://$S3_BUCKET_NAME/
   after_script:
     - aws cloudfront create-invalidation --distribution-id=$CF_DISTRIBUTION_ID --paths '/*'
   dependencies:
     - build/product
   rules:
-    - if: $CI_COMMIT_REF_NAME == "master"
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
       when: on_success
 
 deploy/proto:
   image: python:latest
   stage: deploy
-  script:
+  variables:
+    S3_PROTO_BUCKET_NAME: ddakdae-client-proto
+  before_script:
     - pip install awscli
-    - echo 'deploy/proto'
+  script:
+    - aws s3 sync build s3://$S3_PROTO_BUCKET_NAME/ --acl public-read
   dependencies:
     - build/proto
   rules:

@@ -1,14 +1,20 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { MainPage } from "../pages";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { RedirectHome } from "../components/simpleComponents";
+import { BoardPage, CategoryPage, MomPage } from "../pages";
+import CategoryRedirectRoute from "./route/CategoryRedirectRoute";
+import MomRedirectRoute from "./route/MomRedirectRoute";
 
 const MRouter: React.FC = () => {
-  console.log("M Router Render!!!");
-
   return (
     <Router>
-      <h1>Member Router</h1>
-      <Route exact={true} path={"/"} component={MainPage} />
+      <Switch>
+        <MomRedirectRoute exact={true} path={"/"} />
+        <CategoryRedirectRoute path={"/mom"} component={MomPage} />
+        <Route path={"/board"} component={BoardPage} />
+        <Route path={"/category"} component={CategoryPage} />
+        <Route component={RedirectHome} />
+      </Switch>
     </Router>
   );
 };

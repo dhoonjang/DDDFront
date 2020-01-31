@@ -1,10 +1,6 @@
-import { action, computed, observable } from "mobx";
-import { clearLocal } from "../../control/controlLocal";
-import {
-  getLocalToken,
-  IToken,
-  setLocalToken
-} from "../../control/controlToken";
+import { action, observable } from "mobx";
+import { clearLocal } from "../../tool/localTool";
+import { ETokenCategory, getToken } from "../../tool/tokenTool";
 
 class AuthStore {
   public static getInstance(): AuthStore {
@@ -20,28 +16,13 @@ class AuthStore {
   @observable
   public authenticated: boolean = false;
 
-  @observable
-  private token: IToken | null = getLocalToken();
-
   private constructor() {}
 
-  @computed
-  get storeToken(): IToken | null {
-    if (this.token !== getLocalToken()) {
-      this.token = getLocalToken();
-    }
-    return this.token;
-  }
-
   @action
-  public setToken(token: IToken): void {
-    setLocalToken(token);
-    this.token = token;
-  }
-
-  @action
-  public async authorized(): Promise<boolean> {
-    if (this.token && this.token.isValid) {
+  public authorized(): boolean {
+    const accessToken: string | null = getToken(ETokenCategory.accessToken);
+    const refreshToken: string | null = getToken(ETokenCategory.refreshToken);
+    if (accessToken && refreshToken) {
       this.authenticated = true;
       return true;
     }
@@ -49,9 +30,8 @@ class AuthStore {
   }
 
   @action
-  public clearStore(): void {
+  public unAuthorized(): void {
     clearLocal();
-    this.token = null;
     this.authenticated = false;
   }
 }

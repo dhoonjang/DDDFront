@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { RedirectHome } from "../components/simpleComponents";
 import { FirstPage, JoinPage, LoginPage } from "../pages";
 
 const NMRouter: React.FC = () => {
@@ -7,10 +8,12 @@ const NMRouter: React.FC = () => {
 
   return (
     <Router>
-      <h1>NonMember Router</h1>
-      <Route exact={true} path={"/"} component={FirstPage} />
-      <Route path={"/login"} component={LoginPage} />
-      <Route path={"/join"} component={JoinPage} />
+      <Switch>
+        <Route exact={true} path={"/"} component={FirstPage} />
+        <Route path={"/login"} component={LoginPage} />
+        <Route path={"/join"} component={JoinPage} />
+        <Route component={RedirectHome} />
+      </Switch>
     </Router>
   );
 };

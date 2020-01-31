@@ -1,21 +1,35 @@
 import React from "react";
-import { makeGetUrl } from "../../control/controlUrl";
+import Header from "../../components/Header";
+import { BlockImg } from "../../components/simpleComponents";
+import firstpageTitle from "../../img/firstpage-title.png";
+import kakaoLoginBtn from "../../img/kakao-account-login-btn.png";
+import "../../style/FirstPage.scss";
+import { getUrlInfo, makeGetUrl } from "../../tool/urlTool";
 
 const FirstPage: React.FC = () => {
-  const kakaoOauthUrl = makeGetUrl(
-    "https://kauth.kakao.com",
-    "/oauth/authorize",
+  const { origin } = getUrlInfo();
+  const redirect_uri = `${origin}/login`;
+
+  const kakaoGrantUrl = makeGetUrl(
+    `${process.env.REACT_APP_KAKAO_OAUTH_URL}`,
+    "/authorize",
     {
-      client_id: "b9339e3d9d65a4a60f71b38c8da49977",
-      redirect_uri: "https://ddakdae.com/login",
+      client_id: process.env.REACT_APP_KAKAO_CLIENT_ID,
+      redirect_uri,
       response_type: "code"
     }
   );
+
   return (
     <div className="FirstPage">
-      <h2>Frist Page</h2>
-      <br />
-      <a href={kakaoOauthUrl}>Kakao 간편 로그인</a>
+      <Header />
+      <div className="body-content">
+        <div className="sub-title">야, 대학</div>
+        <BlockImg className="ititle" src={firstpageTitle} />
+        <a href={kakaoGrantUrl}>
+          <BlockImg className="ikakao-login-btn" src={kakaoLoginBtn} />
+        </a>
+      </div>
     </div>
   );
 };
