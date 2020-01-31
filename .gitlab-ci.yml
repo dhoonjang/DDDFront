@@ -81,11 +81,11 @@ deploy/proto:
   image: python:latest
   stage: deploy
   variables:
-    S3_BUCKET_NAME: ddakdae-client-proto
+    S3_PROTO_BUCKET_NAME: ddakdae-client-proto
   before_script:
     - pip install awscli
   script:
-    - aws s3 sync build s3://$S3_BUCKET_NAME/ --acl public-read
+    - aws s3 sync build s3://$S3_PROTO_BUCKET_NAME/ --acl public-read
   dependencies:
     - build/proto
   rules:

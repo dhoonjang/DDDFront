@@ -8,6 +8,7 @@ export function makeGetUrl(baseUrl: string, url: string, params: any): string {
   if (params) {
     getUrl.search = new URLSearchParams(params).toString();
   }
+
   return String(getUrl);
 }
 
