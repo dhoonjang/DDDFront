@@ -1,8 +1,14 @@
+@import "./index.scss";
+
 .FirstPage {
   position: relative;
   margin: 0;
-  padding-left: 160px;
   height: calc(100vh - 84px);
+  .body-content {
+    margin: 0 auto;
+    width: 85%;
+    max-width: $frame-middle-width;
+  }
   .body-content:after {
     background-image: url("../img/firstpage-background.png");
     background-repeat: no-repeat;

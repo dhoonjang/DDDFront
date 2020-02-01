@@ -1,0 +1,33 @@
+.CategoryPage {
+  height: calc(100vh - 84px - 92px);
+  background-color: #eeeeee;
+  text-align: center;
+  padding-top: 92px;
+  .category-message {
+    color: #333333;
+    font-size: 30px;
+    font-weight: 900;
+  }
+  .category-select-box {
+    width: 248px;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 72px;
+    margin-bottom: 66px;
+    border: 1px solid #646464;
+    select {
+      display: none;
+    }
+  }
+  .CategoryItems {
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+    width: 1040px;
+    div {
+      background-color: #ffffff;
+      height: 260px;
+    }
+  }
+}
