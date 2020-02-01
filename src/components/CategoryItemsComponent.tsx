@@ -1,15 +1,25 @@
 import React from "react";
 import CategoryItems, { ICategoryItems } from "../items/CategoryItems";
+import { IHistory, RouteUrlMove } from "../tool/urlTool";
 
-const makeCategoryItemsDiv = (items: ICategoryItems) => {
+const makeCategoryItemsDiv = (items: ICategoryItems, history: IHistory) => {
   return items.items.map((item, index) => {
-    return <div key={index}>{item.name}</div>;
+    const moveCategoryItemPage = () => {
+      RouteUrlMove(history, `/category/${item.name}`);
+    };
+    return (
+      <div key={index} onClick={moveCategoryItemPage}>
+        {item.name}
+      </div>
+    );
   });
 };
 
-const CategoryItemsComponent: React.FC = () => {
-  const categoryItems = makeCategoryItemsDiv(CategoryItems);
-  return <div className="CategorItems">{categoryItems}</div>;
+const CategoryItemsComponent: React.FC<{ history: IHistory }> = ({
+  history
+}) => {
+  const categoryItems = makeCategoryItemsDiv(CategoryItems, history);
+  return <div className="CategoryItems">{categoryItems}</div>;
 };
 
 export default CategoryItemsComponent;

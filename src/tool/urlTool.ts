@@ -1,4 +1,7 @@
 export interface IHistory {
+  location: {
+    pathname: string;
+  };
   replace: (path: string) => void;
   push: (path: string) => void;
 }
