@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 import Header from "../../components/Header";
+import CategoryItems from "../../items/CategoryItems";
 import { useAuthAction, useUserAction } from "../../store/storeFuncs";
 import "../../style/CategoryItemPage.scss";
 import { RouteUrlMove } from "../../tool/urlTool";
@@ -16,6 +17,9 @@ const CategoryItemPage: React.FC = () => {
     RouteUrlMove(history, "/mom");
   };
 
+  const Item = CategoryItems.items.filter(item => item.name === params.item);
+
+  console.log(Item[0]);
   return (
     <div className="CategoryItemPage">
       <Header unAuthorized={unAuthorized} />
