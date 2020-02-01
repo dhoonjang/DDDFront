@@ -9,9 +9,10 @@ const CategoryPage: React.FC = () => {
   return (
     <div className="CategoryPage">
       <Header unAuthorized={unAuthorized} />
-      <br />
-      <h2>Category Page</h2>
-      <CategoryItemsComponent />
+      <div>
+        <h2>Category Page</h2>
+        <CategoryItemsComponent />
+      </div>
     </div>
   );
 };

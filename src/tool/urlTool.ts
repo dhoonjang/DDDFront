@@ -26,7 +26,7 @@ export function checkProductOrigin(): boolean {
   if (origin === "https://ddakdae.com") {
     return true;
   }
-  console.log("not origin maybe default res");
+  console.log("not origin: maybe default res");
   return false;
 }
 
