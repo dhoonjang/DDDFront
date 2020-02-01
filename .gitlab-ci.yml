@@ -1,3 +1,5 @@
+image: node:latest
+
 stages:
   - test
   - build
@@ -9,7 +11,6 @@ cache:
     - .yarn
 
 test:
-  image: node:latest
   stage: test
   before_script:
     - apt-get update -qq && apt-get install
@@ -24,7 +25,6 @@ test:
       when: always
 
 build/product:
-  image: node:latest
   stage: build
   before_script:
     - apt-get update -qq && apt-get install
@@ -42,7 +42,6 @@ build/product:
       when: on_success
 
 build/proto:
-  image: node:latest
   stage: build
   before_script:
     - apt-get update -qq && apt-get install
