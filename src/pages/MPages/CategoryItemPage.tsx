@@ -24,7 +24,6 @@ const CategoryItemPage: React.FC = () => {
     <div className="CategoryItemPage">
       <Header unAuthorized={unAuthorized} />
       <h2 onClick={setBoardCategory}>{params.item}</h2>
-      {Item[0].discription}
     </div>
   );
 };
