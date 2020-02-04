@@ -1,5 +1,75 @@
-$header-height: 84px;
 $frame-middle-width: 1200px;
+
+@font-face {
+  font-family: SCDream1;
+  src: url(./fonts/SCDream1.otf) format("opentype");
+}
+@font-face {
+  font-family: SCDream2;
+  src: url(./fonts/SCDream2.otf) format("opentype");
+}
+@font-face {
+  font-family: SCDream3;
+  src: url(./fonts/SCDream3.otf) format("opentype");
+}
+@font-face {
+  font-family: SCDream4;
+  src: url(./fonts/SCDream4.otf) format("opentype");
+}
+@font-face {
+  font-family: SCDream5;
+  src: url(./fonts/SCDream5.otf) format("opentype");
+}
+@font-face {
+  font-family: SCDream6;
+  src: url(./fonts/SCDream6.otf) format("opentype");
+}
+@font-face {
+  font-family: SCDream7;
+  src: url(./fonts/SCDream7.otf) format("opentype");
+}
+@font-face {
+  font-family: SCDream8;
+  src: url(./fonts/SCDream8.otf) format("opentype");
+}
+@font-face {
+  font-family: SCDream9;
+  src: url(./fonts/SCDream9.otf) format("opentype");
+}
+
+@font-face {
+  font-family: NotoSansCJK-Black;
+  src: url(./fonts/NotoSansCJKkr-Black.otf) format("opentype");
+}
+@font-face {
+  font-family: NotoSansCJK-Bold;
+  src: url(./fonts/NotoSansCJKkr-Bold.otf) format("opentype");
+}
+@font-face {
+  font-family: NotoSansCJK-DemiLight;
+  src: url(./fonts/NotoSansCJKkr-DemiLight.otf) format("opentype");
+}
+@font-face {
+  font-family: NotoSansCJK-Thin;
+  src: url(./fonts/NotoSansCJKkr-Thin.otf) format("opentype");
+}
+@font-face {
+  font-family: NotoSansCJK-Light;
+  src: url(./fonts/NotoSansCJKkr-Light.otf) format("opentype");
+}
+@font-face {
+  font-family: NotoSansCJK-Medium;
+  src: url(./fonts/NotoSansCJKkr-Medium.otf) format("opentype");
+}
+@font-face {
+  font-family: NotoSansCJK-Regular;
+  src: url(/fonts/NotoSansCJKkr-Regular.otf) format("opentype");
+}
+
+@font-face {
+  font-family: ChosunilboNM;
+  src: local(ChosunilboNM), url(./fonts/ChosunilboNM.ttf) format("truetype");
+}
 
 html,
 body,
@@ -18,11 +88,10 @@ input {
 }
 
 img {
-  width: min-content;
-  height: min-content;
+  width: inherit;
+  height: inherit;
 }
 
 .App {
   width: 100%;
-  margin-top: $header-height;
 }

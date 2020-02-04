@@ -1,6 +1,6 @@
 export const errorHandler = (error: any) => {
   console.log(error);
   return {
-    code: "ERROR"
+    status: error?.code
   };
 };

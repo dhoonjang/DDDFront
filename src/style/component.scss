@@ -4,19 +4,22 @@
   top: 0;
   left: 0;
   position: fixed;
-  background-color: #fff;
   width: 100%;
-  height: $header-height;
+  z-index: 10;
   .header-flex {
     margin: 0 auto;
-    width: 85%;
+    width: calc(100vw - 60 * 2px);
+    height: 60px;
     max-width: $frame-middle-width;
-    height: $header-height;
     display: flex;
     align-items: center;
     justify-content: space-between;
     .iddakdae-logo {
-      height: min-content;
+      width: 36px;
+      height: 22px;
+    }
+    button {
+      background: none;
     }
   }
 }

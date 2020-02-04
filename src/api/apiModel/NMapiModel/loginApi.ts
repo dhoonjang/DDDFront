@@ -16,6 +16,7 @@ export interface ILoginApiReturn extends IApiReturn {
 const loginApi = async (oauth_token: string): Promise<ILoginApiReturn> => {
   const { get } = apiAgent(false);
   const res = await get("/login/kakao", { oauth_token });
+  console.log(res);
   if (res.status === 200) {
     return {
       success: true,

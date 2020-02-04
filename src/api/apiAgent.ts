@@ -8,28 +8,23 @@ import { baseURL, refreshAuthLogic } from "./apiFuncs";
 
 export const createFetchClient = (auth: boolean) => {
   const apiInstance: AxiosInstance = axios.create({
-    baseURL
+    baseURL,
+    validateStatus: status => status >= 200 && status < 400
   });
   if (auth) {
     createAuthRefreshInterceptor(apiInstance, refreshAuthLogic);
-    apiInstance.interceptors.request.use(
-      request => {
-        console.log(request);
-        request.headers.Authorization = `Bearer ${getToken(
-          ETokenCategory.accessToken
-        )}`;
-        return request;
-      },
-      error => Promise.reject(error)
-    );
+    apiInstance.interceptors.request.use(request => {
+      console.log(request);
+      request.headers.Authorization = `Bearer ${getToken(
+        ETokenCategory.accessToken
+      )}`;
+      return request;
+    });
   } else {
-    apiInstance.interceptors.request.use(
-      request => {
-        console.log(request);
-        return request;
-      },
-      error => Promise.reject(error)
-    );
+    apiInstance.interceptors.request.use(request => {
+      console.log(request);
+      return request;
+    });
   }
   return apiInstance;
 };

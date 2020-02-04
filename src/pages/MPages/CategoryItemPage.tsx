@@ -8,22 +8,22 @@ import { RouteUrlMove } from "../../tool/urlTool";
 
 const CategoryItemPage: React.FC = () => {
   const history = useHistory();
-  const params = useParams<{ item: string }>();
+  const params = useParams<{ category_id: string }>();
   const { unAuthorized } = useAuthAction();
   const { setUserStatus } = useUserAction();
 
   const setBoardCategory = () => {
     setUserStatus("01");
-    RouteUrlMove(history, "/mom");
+    RouteUrlMove(history, "/board");
   };
 
-  const Item = CategoryItems.items.filter(item => item.name === params.item);
+  const Item = CategoryItems.items.find(item => item.id === params.category_id);
 
-  console.log(Item[0]);
+  console.log(Item);
   return (
     <div className="CategoryItemPage">
       <Header unAuthorized={unAuthorized} />
-      <h2 onClick={setBoardCategory}>{params.item}</h2>
+      <h2 onClick={setBoardCategory}>{Item?.name}</h2>
     </div>
   );
 };

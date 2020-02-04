@@ -12,8 +12,8 @@
   font-size: 14px;
   position: fixed;
   margin-left: calc(50vw - (662 * 0.5px));
-  animation: fadein 2s linear 1.5s 1 both;
-  top: 240px;
+  animation: fadein 2s linear 1s 1 both;
+  top: 225px;
   z-index: 2;
   width: 662px;
   .student-form {
@@ -61,22 +61,39 @@
 }
 
 .JoinPage {
-  .imessage {
-    width: 435px;
-    margin-left: calc(50vw - (435 * 0.5px));
+  .message {
+    font-family: SCDream7;
+    text-align: center;
+    font-size: 32.5px;
+    color: #ffffff;
+    margin-left: calc(50vw - (362 * 0.5px));
+    width: 362px;
     position: fixed;
-    top: 136px;
+    top: 144px;
     z-index: 2;
     transition-property: top;
-    transition-duration: 1.5s;
+    transition-duration: 1s;
     transition-timing-function: ease;
+    .sub-message {
+      font-family: NotoSansCJK-Regular;
+      font-size: 8px;
+      margin-top: 10px;
+      transition-property: opacity;
+      transition-duration: 1s;
+    }
     &.INITIAL {
-      top: 272px;
+      top: 172px;
+    }
+    &.STUDENT,
+    &.TUTOR {
+      .sub-message {
+        opacity: 0;
+      }
     }
   }
   .join-area {
     width: 100%;
-    height: calc(100vh - 84px);
+    height: 100vh;
     background-color: #333333;
     .area {
       width: 50%;

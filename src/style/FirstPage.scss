@@ -3,7 +3,7 @@
 .FirstPage {
   position: relative;
   margin: 0;
-  height: calc(100vh - 84px);
+  height: 100vh;
   .body-content {
     margin: 0 auto;
     width: 85%;
@@ -26,12 +26,15 @@
   }
   .sub-title {
     font-family: ChosunilboNM;
-    font-size: 57px;
+    font-size: 32.5px;
     color: #333333;
     padding-top: 133px;
   }
-  .ititle {
+  .title {
+    font-family: SCDream9;
+    font-size: 92.5px;
     margin-top: 59px;
+    color: #333333;
   }
   .ikakao-login-btn {
     width: 300px;

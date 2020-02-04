@@ -13,7 +13,7 @@ const refreshApi = async (
   refresh_token: string
 ): Promise<IRefreshApiReturn> => {
   const { post } = apiAgent(false);
-  const res = await post("/refresh", {
+  const res = await post("/auth/refresh", {
     refresh_token
   });
   if (res.status === 200) {

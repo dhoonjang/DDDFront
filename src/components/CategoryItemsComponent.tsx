@@ -5,7 +5,7 @@ import { IHistory, RouteUrlMove } from "../tool/urlTool";
 const makeCategoryItemsDiv = (items: ICategoryItems, history: IHistory) => {
   return items.items.map((item, index) => {
     const moveCategoryItemPage = () => {
-      RouteUrlMove(history, `/category/${item.name}`);
+      RouteUrlMove(history, `/category/${item.id}`);
     };
     return (
       <div key={index} onClick={moveCategoryItemPage}>

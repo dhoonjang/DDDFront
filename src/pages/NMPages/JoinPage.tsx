@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../../components/Header";
 import JoinForm from "../../components/JoinForm";
-import { BlockImg } from "../../components/simpleComponents";
-import joinMessage from "../../img/join-message.png";
 import { useAuthAction, useUserAction } from "../../store/storeFuncs";
 import "../../style/JoinPage.scss";
 import { ETokenCategory, getToken } from "../../tool/tokenTool";
@@ -32,7 +30,10 @@ const JoinPage: React.FC = () => {
   return (
     <div className="JoinPage">
       <Header />
-      <BlockImg className={`imessage ${joinState}`} src={joinMessage} />
+      <div className={`message ${joinState}`}>
+        당신은 누구신가요?
+        <div className="sub-message">어떤 사용자로 시작할지 선택해주세요</div>
+      </div>
       <JoinForm
         joinState={joinState}
         setUserStatus={setUserStatus}

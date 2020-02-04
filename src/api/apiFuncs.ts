@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ETokenCategory, getToken, setToken } from "../tool/tokenTool";
 import { refreshApi } from "./apiModel";
 
-export const baseURL = "http://api.ddakdae.com";
+export const baseURL = "https://api.ddakdae.com";
 
 export type TApiModel = (...parameters: any[]) => Promise<any>;
 

@@ -21,8 +21,8 @@ export interface IMomApiReturn extends IApiReturn {
 }
 
 const momApi = async (): Promise<IMomApiReturn> => {
-  const { post } = apiAgent(true);
-  const res = await post("/mom");
+  const { get } = apiAgent(true);
+  const res = await get("/mom/board");
   if (res.status === 200) {
     return {
       success: true

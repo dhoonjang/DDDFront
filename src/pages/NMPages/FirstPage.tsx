@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../../components/Header";
 import { BlockImg } from "../../components/simpleComponents";
-import firstpageTitle from "../../img/firstpage-title.png";
 import kakaoLoginBtn from "../../img/kakao-account-login-btn.png";
 import "../../style/FirstPage.scss";
 import { getUrlInfo, makeGetUrl } from "../../tool/urlTool";
@@ -25,7 +24,7 @@ const FirstPage: React.FC = () => {
       <Header />
       <div className="body-content">
         <div className="sub-title">야, 대학</div>
-        <BlockImg className="ititle" src={firstpageTitle} />
+        <div className="title">딱 대.</div>
         <a href={kakaoGrantUrl}>
           <BlockImg className="ikakao-login-btn" src={kakaoLoginBtn} />
         </a>

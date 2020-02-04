@@ -1,12 +1,13 @@
 .CategoryPage {
-  height: calc(100vh - 84px - 92px);
+  $padding-top: 152px;
+  height: calc(100vh - 152px);
   background-color: #eeeeee;
   text-align: center;
-  padding-top: 92px;
+  padding-top: $padding-top;
   .category-message {
+    font-family: SCDream7;
     color: #333333;
-    font-size: 30px;
-    font-weight: 900;
+    font-size: 32.5px;
   }
   .category-select-box {
     width: 248px;

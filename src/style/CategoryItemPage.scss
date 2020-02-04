@@ -1,6 +1,7 @@
 .CategoryItemPage {
-  height: calc(100vh - 84px - 92px);
+  $padding-top: 152px;
+  height: calc(100vh - 152px);
   background-color: #eeeeee;
   text-align: center;
-  padding-top: 92px;
+  padding-top: 152px;
 }
