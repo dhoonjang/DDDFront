@@ -63,12 +63,12 @@ $frame-middle-width: 1200px;
 }
 @font-face {
   font-family: NotoSansCJK-Regular;
-  src: url(/fonts/NotoSansCJKkr-Regular.otf) format("opentype");
+  src: url(./fonts/NotoSansCJKkr-Regular.otf) format("opentype");
 }
 
 @font-face {
-  font-family: ChosunilboNM;
-  src: local(ChosunilboNM), url(./fonts/ChosunilboNM.ttf) format("truetype");
+  font-family: NotoSerifCJK-ExtraLight;
+  src: url(./fonts/NotoSerifCJKkr-ExtraLight.otf) format("opentype");
 }
 
 html,
@@ -76,15 +76,20 @@ body,
 div {
   margin: 0;
   padding: 0;
+  font-family: NotoSansCJK-Regular;
   font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
 }
 
 button,
 input {
+  font-family: NotoSansCJK-Regular;
   border: 0;
   background-color: #fff;
+}
+
+a {
+  text-decoration: none;
 }
 
 img {

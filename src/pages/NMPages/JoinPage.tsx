@@ -29,7 +29,7 @@ const JoinPage: React.FC = () => {
 
   return (
     <div className="JoinPage">
-      <Header />
+      <Header white={true} />
       <div className={`message ${joinState}`}>
         당신은 누구신가요?
         <div className="sub-message">어떤 사용자로 시작할지 선택해주세요</div>
@@ -45,7 +45,7 @@ const JoinPage: React.FC = () => {
           <button onClick={() => setJoinState(EJoinState.student)}>
             입시를 준비하는 학생
           </button>
-          <div className="ex">ex) 고등학교 1~3학년, N수생</div>
+          <div className="ex">고등학교 1~3학년, N수생</div>
           <div
             className={`cover ${studentFocus}`}
             onMouseOver={() => {
@@ -58,7 +58,7 @@ const JoinPage: React.FC = () => {
           <button onClick={() => setJoinState(EJoinState.tutor)}>
             학생을 도와줄 튜터
           </button>
-          <div className="ex">ex) 학부모, 선생님</div>
+          <div className="ex">학부모, 선생님</div>
           <div
             className={`cover ${tutorFocus}`}
             onMouseOver={() => {

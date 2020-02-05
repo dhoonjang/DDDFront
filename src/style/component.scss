@@ -10,16 +10,37 @@
     margin: 0 auto;
     width: calc(100vw - 60 * 2px);
     height: 60px;
-    max-width: $frame-middle-width;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .iddakdae-logo {
-      width: 36px;
-      height: 22px;
+    .ddakdae-logo {
+      .iddakdae-logo {
+        width: 40px;
+        height: 24px;
+      }
+      .ddakdae-logo-text {
+        display: none;
+        width: max-content;
+        height: max-content;
+        font-family: SCDream9;
+        font-size: 24px;
+        color: #333;
+        &.white {
+          color: #fff;
+        }
+      }
+      &:hover {
+        .iddakdae-logo {
+          display: none;
+        }
+        .ddakdae-logo-text {
+          display: block;
+        }
+      }
     }
-    button {
-      background: none;
+    .imenu-icon {
+      width: 24px;
+      height: 16px;
     }
   }
 }

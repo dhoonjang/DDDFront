@@ -9,13 +9,14 @@
 
 .JoinForm {
   color: #fff;
-  font-size: 14px;
+  font-family: SCDream3;
+  font-size: 16px;
   position: fixed;
-  margin-left: calc(50vw - (662 * 0.5px));
+  margin-left: calc(50vw - (642 * 0.5px));
   animation: fadein 2s linear 1s 1 both;
-  top: 225px;
+  top: 223px;
   z-index: 2;
-  width: 662px;
+  width: 642px;
   .student-form {
     .gender-select,
     .grade-select {
@@ -23,12 +24,17 @@
       margin-top: 19px;
       margin-bottom: 48px;
       button {
-        width: 107px;
-        height: 37px;
+        font-family: NotoSansCJK-Medium;
+        font-size: 13px;
+        border-radius: 2px;
+        color: white;
+        border: 2px solid #fff;
+        width: 120px;
+        height: 42px;
         margin-right: 15px;
-        opacity: 0.5;
+        background-color: rgba(255, 255, 255, 0);
         &:hover {
-          opacity: 1;
+          background-color: rgba(255, 255, 255, 0.6);
         }
       }
       &.-man .man,
@@ -37,25 +43,31 @@
       &.-two .two,
       &.-three .three,
       &.-else .else {
-        opacity: 1;
+        color: black;
+        background-color: rgba(255, 255, 255, 1);
       }
     }
     .grade-select {
       margin-bottom: 96px;
     }
     input {
+      font-family: NotoSansCJK-DemiLight;
       display: block;
       margin-top: 18px;
       margin-bottom: 48px;
       font-size: 13px;
-      width: 642px;
-      height: 36px;
+      width: 622px;
+      height: 42px;
       padding-left: 20px;
+      border-radius: 2px;
     }
     .submit {
-      width: 130px;
-      height: 40px;
-      margin-left: calc((662 - 130) * 0.5px);
+      font-family: SCDream6;
+      font-size: 14px;
+      width: 174px;
+      height: 38px;
+      border-radius: 2px;
+      margin-left: calc((642 - 174) * 0.5px);
     }
   }
 }
@@ -64,10 +76,11 @@
   .message {
     font-family: SCDream7;
     text-align: center;
-    font-size: 32.5px;
+    font-size: 34px;
     color: #ffffff;
     margin-left: calc(50vw - (362 * 0.5px));
     width: 362px;
+    height: 118px;
     position: fixed;
     top: 144px;
     z-index: 2;
@@ -76,13 +89,14 @@
     transition-timing-function: ease;
     .sub-message {
       font-family: NotoSansCJK-Regular;
-      font-size: 8px;
+      font-size: 12px;
       margin-top: 10px;
       transition-property: opacity;
       transition-duration: 1s;
     }
     &.INITIAL {
       top: 172px;
+      border-bottom: 1px solid #fff;
     }
     &.STUDENT,
     &.TUTOR {
@@ -107,8 +121,8 @@
       transition-timing-function: ease;
       .cover {
         position: absolute;
-        background-color: #333;
-        opacity: 0.8;
+        background-color: #000;
+        opacity: 0.4;
         width: 100%;
         height: 100%;
         transition-property: opacity;
@@ -116,35 +130,45 @@
         top: 0;
         left: 0;
         &.-focus {
-          opacity: 0.4;
+          opacity: 0;
         }
       }
       button {
         position: absolute;
+        font-family: SCDream6;
+        color: rgba(51, 51, 51, 0.6);
         background-color: #fff;
         z-index: 2;
         border: 0px;
-        width: 260px;
-        height: 70px;
+        width: 243px;
+        height: 72px;
+        border-radius: 2px;
         font-size: 16px;
-        top: 376px;
-        opacity: 0.7;
-        transition-property: opacity;
+        top: 415px;
+        opacity: 0.6;
+        transition-property: opacity color;
         transition-duration: 1s;
       }
       &.-focus {
         button {
           opacity: 1;
+          color: #333;
+        }
+        .ex {
+          color: #fff;
         }
       }
       .ex {
+        font-family: NotoSansCJK-Regular;
         position: absolute;
         z-index: 2;
         width: 50vw;
         text-align: center;
-        font-size: 16px;
+        font-size: 14px;
+        transition-property: color;
+        transition-duration: 1s;
         color: rgba(255, 255, 255, 0.6);
-        top: 470px;
+        top: 510px;
       }
       &.STUDENT,
       &.TUTOR {
@@ -163,6 +187,9 @@
     .student-area {
       float: left;
       background-image: url("../img/join-student-img.png");
+      .cover {
+        opacity: 0.6;
+      }
       button {
         margin-left: calc(25vw - (260 * 0.5px));
       }

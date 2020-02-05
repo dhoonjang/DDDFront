@@ -12,13 +12,12 @@ const CategoryPage: React.FC = () => {
   return (
     <div className="CategoryPage">
       <Header unAuthorized={unAuthorized} />
-      <div className="category-message">진로는 어느 쪽인가요?</div>
-      <div className="category-select-box">
-        <select defaultValue="default">
-          <option value="default">모든 계열 보기</option>
-        </select>
+      <div className="category-vertical">
+        <div>
+          <div className="category-message">진로는 어느 쪽인가요?</div>
+          <CategoryItemsComponent history={history} />
+        </div>
       </div>
-      <CategoryItemsComponent history={history} />
     </div>
   );
 };

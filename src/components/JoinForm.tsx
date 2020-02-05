@@ -46,7 +46,7 @@ const JoinForm: React.FC<IJoinFormProps> = ({
     <div className="JoinForm">
       {joinState === EJoinState.student && (
         <div className="student-form">
-          성별
+          성별 선택
           <div className={`gender-select ${gender}`}>
             <button className="man" onClick={() => setGender("-man")}>
               남자

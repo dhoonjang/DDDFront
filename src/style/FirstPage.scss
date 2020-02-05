@@ -3,41 +3,38 @@
 .FirstPage {
   position: relative;
   margin: 0;
-  height: 100vh;
-  .body-content {
+  .first-flex {
+    display: flex;
+    height: 288px;
+    width: 900px;
+    justify-content: space-between;
+    align-items: center;
     margin: 0 auto;
-    width: 85%;
-    max-width: $frame-middle-width;
+    margin-top: calc(50vh - 288 * 0.5px + 14px);
   }
-  .body-content:after {
-    background-image: url("../img/firstpage-background.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-y: center;
-    background-position-x: center;
-    top: 0;
-    left: 0;
-    position: absolute;
-    opacity: 0.2 !important;
-    z-index: -1;
-    content: "";
-    width: 100%;
-    height: 100%;
+  .ifirst-logo {
+    width: 477px;
+    height: 288px;
   }
-  .sub-title {
-    font-family: ChosunilboNM;
-    font-size: 32.5px;
-    color: #333333;
-    padding-top: 133px;
-  }
-  .title {
-    font-family: SCDream9;
-    font-size: 92.5px;
-    margin-top: 59px;
-    color: #333333;
-  }
-  .ikakao-login-btn {
-    width: 300px;
-    margin-top: 79px;
+  .body-content {
+    height: 288px;
+    margin-top: -20px;
+    .sub-title {
+      font-family: NotoSerifCJK-ExtraLight;
+      font-size: 38px;
+      color: #333333;
+    }
+    .title {
+      font-family: SCDream9;
+      font-size: 96px;
+      color: #333333;
+      margin-top: 30px;
+      margin-left: -3px;
+    }
+    .ikakao-login-btn {
+      width: 300px;
+      height: 48px;
+      margin-top: 50px;
+    }
   }
 }

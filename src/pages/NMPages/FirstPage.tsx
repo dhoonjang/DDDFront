@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../../components/Header";
 import { BlockImg } from "../../components/simpleComponents";
+import fisrtLogo from "../../img/first-logo.svg";
 import kakaoLoginBtn from "../../img/kakao-account-login-btn.png";
 import "../../style/FirstPage.scss";
 import { getUrlInfo, makeGetUrl } from "../../tool/urlTool";
@@ -22,12 +23,17 @@ const FirstPage: React.FC = () => {
   return (
     <div className="FirstPage">
       <Header />
-      <div className="body-content">
-        <div className="sub-title">야, 대학</div>
-        <div className="title">딱 대.</div>
-        <a href={kakaoGrantUrl}>
-          <BlockImg className="ikakao-login-btn" src={kakaoLoginBtn} />
-        </a>
+      <div className="first-flex">
+        <object type="image/svg+xml" data={fisrtLogo} className="ifirst-logo">
+          현재 브라우저는 iframe을 지원하지 않습니다.
+        </object>
+        <div className="body-content">
+          <div className="sub-title">야, 대학</div>
+          <div className="title">딱 대.</div>
+          <a href={kakaoGrantUrl}>
+            <BlockImg className="ikakao-login-btn" src={kakaoLoginBtn} />
+          </a>
+        </div>
       </div>
     </div>
   );
