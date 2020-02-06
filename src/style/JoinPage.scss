@@ -11,7 +11,7 @@
   z-index: 2;
   position: fixed;
   width: 642px;
-  top: 223px;
+  top: 213px;
   margin-left: calc(50vw - (642 * 0.5px));
   font-size: 16px;
   animation: fadein 2s linear 1s 1 both;
@@ -82,11 +82,11 @@
     width: 362px;
     height: 118px;
     position: fixed;
-    top: 144px;
+    top: 172px;
+    opacity: 0;
     z-index: 2;
-    transition-property: top;
+    transition-property: opacity;
     transition-duration: 1s;
-    transition-timing-function: ease;
     .sub-message {
       color: #ffffff;
       font-family: NotoSansCJK-Regular;
@@ -96,7 +96,7 @@
       transition-duration: 1s;
     }
     &.INITIAL {
-      top: 172px;
+      opacity: 1;
       border-bottom: 1px solid #fff;
     }
     &.STUDENT,
