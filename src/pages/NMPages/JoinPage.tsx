@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import Header from "../../components/Header";
 import JoinForm from "../../components/JoinForm";
 import { useAuthAction, useUserAction } from "../../store/storeFuncs";
 import "../../style/JoinPage.scss";
 import { ETokenCategory, getToken } from "../../tool/tokenTool";
-import { RouteUrlMove } from "../../tool/urlTool";
 
 export enum EJoinState {
   initial = "INITIAL",
@@ -14,14 +12,9 @@ export enum EJoinState {
 }
 
 const JoinPage: React.FC = () => {
-  const history = useHistory();
   const token = getToken(ETokenCategory.oauthToken);
   const { authorized } = useAuthAction();
   const { setUserStatus } = useUserAction();
-
-  if (!token) {
-    RouteUrlMove(history, "/");
-  }
 
   const [joinState, setJoinState] = useState<EJoinState>(EJoinState.initial);
   const [tutorFocus, setTutorFocus] = useState("");

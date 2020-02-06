@@ -1,20 +1,19 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { RedirectHome } from "../components/simpleComponents";
 import { FirstPage, JoinPage, LoginPage } from "../pages";
+import FirstRedirectRoute from "./route/FirstRedirectRoute";
 
 const NMRouter: React.FC = () => {
   console.log("NM Router Render!!!");
 
   return (
-    <Router>
-      <Switch>
-        <Route exact={true} path={"/"} component={FirstPage} />
-        <Route path={"/login"} component={LoginPage} />
-        <Route path={"/join"} component={JoinPage} />
-        <Route component={RedirectHome} />
-      </Switch>
-    </Router>
+    <Switch>
+      <Route exact={true} path={"/"} component={FirstPage} />
+      <Route path={"/login"} component={LoginPage} />
+      <FirstRedirectRoute path={"/join"} component={JoinPage} />
+      <Route component={RedirectHome} />
+    </Switch>
   );
 };
 

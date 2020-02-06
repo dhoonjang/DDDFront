@@ -82,11 +82,12 @@
     width: 362px;
     height: 118px;
     position: fixed;
-    top: 172px;
+    top: 130px;
     opacity: 0;
     z-index: 2;
-    transition-property: opacity;
+    transition-property: opacity top;
     transition-duration: 1s;
+    border-bottom: 1px solid #fff;
     .sub-message {
       color: #ffffff;
       font-family: NotoSansCJK-Regular;
@@ -95,7 +96,7 @@
     }
     &.INITIAL {
       opacity: 1;
-      border-bottom: 1px solid #fff;
+      top: 172px;
     }
   }
   .join-area {
