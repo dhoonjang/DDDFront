@@ -11,7 +11,7 @@
   z-index: 2;
   position: fixed;
   width: 642px;
-  top: 213px;
+  top: 203px;
   margin-left: calc(50vw - (642 * 0.5px));
   font-size: 16px;
   animation: fadein 2s linear 1s 1 both;
@@ -92,18 +92,10 @@
       font-family: NotoSansCJK-Regular;
       font-size: 12px;
       margin-top: 10px;
-      transition-property: opacity;
-      transition-duration: 1s;
     }
     &.INITIAL {
       opacity: 1;
       border-bottom: 1px solid #fff;
-    }
-    &.STUDENT,
-    &.TUTOR {
-      .sub-message {
-        opacity: 0;
-      }
     }
   }
   .join-area {
@@ -187,7 +179,7 @@
     }
     .student-area {
       float: left;
-      background-image: url("../img/join-student-img.png");
+      background-image: url("../img/join-student-img2.png");
       .cover {
         opacity: 0.6;
       }
