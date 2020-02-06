@@ -76,15 +76,17 @@ body,
 div {
   margin: 0;
   padding: 0;
+  vertical-align: baseline;
   font-family: NotoSansCJK-Regular;
   font-size: 100%;
-  vertical-align: baseline;
+  color: #333;
+  font: inherit;
 }
 
 button,
 input {
-  font-family: NotoSansCJK-Regular;
   border: 0;
+  padding: 0;
   background-color: #fff;
 }
 

@@ -8,16 +8,16 @@
 }
 
 .JoinForm {
-  color: #fff;
-  font-family: SCDream3;
-  font-size: 16px;
-  position: fixed;
-  margin-left: calc(50vw - (642 * 0.5px));
-  animation: fadein 2s linear 1s 1 both;
-  top: 223px;
   z-index: 2;
+  position: fixed;
   width: 642px;
+  top: 223px;
+  margin-left: calc(50vw - (642 * 0.5px));
+  font-size: 16px;
+  animation: fadein 2s linear 1s 1 both;
   .student-form {
+    font-family: SCDream3;
+    color: #fff;
     .gender-select,
     .grade-select {
       display: flex;
@@ -43,7 +43,7 @@
       &.-two .two,
       &.-three .three,
       &.-else .else {
-        color: black;
+        color: #333;
         background-color: rgba(255, 255, 255, 1);
       }
     }
@@ -88,6 +88,7 @@
     transition-duration: 1s;
     transition-timing-function: ease;
     .sub-message {
+      color: #ffffff;
       font-family: NotoSansCJK-Regular;
       font-size: 12px;
       margin-top: 10px;
@@ -191,7 +192,7 @@
         opacity: 0.6;
       }
       button {
-        margin-left: calc(25vw - (260 * 0.5px));
+        margin-left: calc(25vw - (243 * 0.5px));
       }
       &.STUDENT {
         width: 100%;
@@ -204,7 +205,7 @@
       float: right;
       background-image: url("../img/join-tutor-img.png");
       button {
-        margin-left: calc(25vw - (260 * 0.5px));
+        margin-left: calc(25vw - (243 * 0.5px));
       }
       &.TUTOR {
         width: 100%;

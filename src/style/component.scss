@@ -1,16 +1,16 @@
 @import "./index.scss";
 
 .Header {
-  top: 0;
-  left: 0;
+  z-index: 10;
   position: fixed;
   width: 100%;
-  z-index: 10;
+  top: 0;
+  left: 0;
   .header-flex {
-    margin: 0 auto;
+    display: flex;
     width: calc(100vw - 60 * 2px);
     height: 60px;
-    display: flex;
+    margin: 0 auto;
     align-items: center;
     justify-content: space-between;
     .ddakdae-logo {

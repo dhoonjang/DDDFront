@@ -18,7 +18,7 @@ const MomPage: React.FC = () => {
       <Header unAuthorized={unAuthorized} />
       <h2>Main Page</h2>
       <br />
-      <Link to="/board">Board</Link>
+      <Link to="/category">category</Link>
       <br />
     </div>
   );
