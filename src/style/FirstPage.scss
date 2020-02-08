@@ -3,6 +3,8 @@
 .FirstPage {
   position: relative;
   margin: 0;
+  background-color: #fff;
+  height: 100vh;
   .first-flex {
     display: flex;
     height: 288px;
@@ -10,7 +12,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    margin-top: calc(50vh - 288 * 0.5px + 14px);
+    padding-top: calc(50vh - 288 * 0.5px + 14px);
   }
   .ifirst-logo {
     width: 477px;

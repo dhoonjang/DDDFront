@@ -25,15 +25,23 @@ export const joinDefaultRes: IJoinApiReturn = {
 export const momDefaultRes: IMomApiReturn = {
   success: true,
   data: {
+    user_status: "01",
+    big_cat: "engineering",
+    medium_cat: "building",
     mom_order: ["a", "b", "c", "d", "e"],
-    d_day: [],
+    d_day: [
+      {
+        name: "21년 수능",
+        date: "20201119"
+      },
+      {
+        name: "20년 3월 모의고사",
+        date: "20200312"
+      }
+    ],
     user_info: {
-      high_school: "sungnam",
-      nick_name: "dhoonjang",
-      suneong_score: 100,
-      nashin_score: 100,
-      like_univ: "string",
-      like_col: "string"
+      high_school: "태원 고등학교",
+      grade: 3
     }
   }
 };

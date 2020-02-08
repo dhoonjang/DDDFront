@@ -1,10 +1,10 @@
 import React from "react";
-import CategoryItems, { ICategoryItems } from "../items/CategoryItems";
+import CategoryItems, { ICategoryItem } from "../items/CategoryItems";
 import { IHistory, RouteUrlMove } from "../tool/urlTool";
 import { BlockImg } from "./simpleComponents";
 
-const makeCategoryItemsDiv = (items: ICategoryItems, history: IHistory) => {
-  return items.items.map((item, index) => {
+const makeCategoryItemsDiv = (items: ICategoryItem[], history: IHistory) => {
+  return items.map((item, index) => {
     const moveCategoryItemPage = () => {
       RouteUrlMove(history, `/category/${item.id}`);
     };

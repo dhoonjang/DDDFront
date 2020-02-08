@@ -76,18 +76,28 @@ body,
 div {
   margin: 0;
   padding: 0;
-  vertical-align: baseline;
   font-family: NotoSansCJK-Regular;
   font-size: 100%;
   color: #333;
   font: inherit;
 }
 
+body {
+  background-color: #f0f0f0;
+}
 button,
 input {
   border: 0;
   padding: 0;
-  background-color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  padding: 0;
 }
 
 button {
@@ -101,8 +111,4 @@ a {
 img {
   width: inherit;
   height: inherit;
-}
-
-.App {
-  width: 100%;
 }
