@@ -30,7 +30,7 @@
         font-family: NotoSansCJK-Medium;
         font-size: 13px;
         border-radius: 2px;
-        color: white;
+        color: #fff;
         border: 2px solid #fff;
         width: 120px;
         height: 42px;
@@ -71,6 +71,7 @@
       height: 38px;
       border-radius: 2px;
       margin-left: calc((642 - 174) * 0.5px);
+      background-color: #fff;
     }
   }
 }
@@ -80,7 +81,7 @@
     font-family: SCDream7;
     text-align: center;
     font-size: 34px;
-    color: #ffffff;
+    color: #fff;
     margin-left: calc(50vw - (362 * 0.5px));
     width: 362px;
     height: 118px;
@@ -95,7 +96,7 @@
     transition-duration: 1s;
     border-bottom: 1px solid #fff;
     .sub-message {
-      color: #ffffff;
+      color: #fff;
       font-family: NotoSansCJK-Regular;
       font-size: 12px;
       margin-top: 10px;
