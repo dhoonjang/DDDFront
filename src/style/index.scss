@@ -85,12 +85,15 @@ $break-point: 1366px;
   }
 }
 
+* {
+  font-family: NotoSansCJK-Regular;
+}
+
 html,
 body,
 div {
   margin: 0;
   padding: 0;
-  font-family: NotoSansCJK-Regular;
   font-size: 100%;
   color: #333;
   font: inherit;
@@ -99,12 +102,20 @@ div {
 body {
   background-color: #f0f0f0;
 }
+
 button,
 input {
-  font-family: NotoSansCJK-Regular;
   border: 0;
   padding: 0;
   font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
 }
 
 h1,
@@ -114,14 +125,6 @@ h4,
 h5 {
   margin: 0;
   padding: 0;
-}
-
-button {
-  cursor: pointer;
-}
-
-a {
-  text-decoration: none;
 }
 
 img {

@@ -148,9 +148,6 @@
         border-radius: 2px;
         font-size: 16px;
         top: 415px;
-        @include respond-to(medium) {
-          top: 415px;
-        }
         @include respond-to(wide) {
           top: 583px;
         }
