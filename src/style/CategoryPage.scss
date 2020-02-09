@@ -28,8 +28,15 @@
     grid-gap: 10px;
     width: 900px;
     margin-top: 124px;
+    @include respond-to(wide) {
+      width: 1200px;
+      margin-top: 176px;
+    }
     .category-item {
       height: 224px;
+      @include respond-to(wide) {
+        height: 300px;
+      }
       text-align: left;
       cursor: pointer;
       .cover {
@@ -37,6 +44,10 @@
         z-index: 2;
         width: 172px;
         height: 160px;
+        @include respond-to(wide) {
+          width: 232px;
+          height: 210px;
+        }
         background-color: #000;
         opacity: 0;
         transition-property: opacity height;
@@ -47,6 +58,11 @@
         height: 160px;
         overflow: hidden;
         max-height: 160px;
+        @include respond-to(wide) {
+          width: 232px;
+          height: 210px;
+          max-height: 210px;
+        }
         transition-property: max-height;
         transition-duration: 0.5s;
         img {
@@ -59,15 +75,26 @@
         padding: 16px;
         height: 32px;
         background-color: #ffffff;
+        @include respond-to(wide) {
+          font-size: 13px;
+          padding: 22px;
+          height: 46px;
+        }
         transition-property: height background-color;
         transition-duration: 0.5s;
         .category-name {
           font-size: 14px;
+          @include respond-to(wide) {
+            font-size: 18px;
+          }
           font-family: SCDream5;
         }
         .category-children {
           display: none;
           margin-top: 34px;
+          @include respond-to(wide) {
+            margin-top: 40px;
+          }
           color: rgba(51, 51, 51, 0.6);
         }
       }
@@ -75,13 +102,22 @@
         .cover {
           height: 96px;
           opacity: 0.6;
+          @include respond-to(wide) {
+            height: 140px;
+          }
         }
         .icategory {
           max-height: 96px;
+          @include respond-to(wide) {
+            max-height: 140px;
+          }
         }
         .category-body {
           height: 96px;
           background-color: #fff45c;
+          @include respond-to(wide) {
+            height: 116px;
+          }
           .category-children {
             display: block;
             animation: fadein 0.5s linear 0.3s 1 both;
