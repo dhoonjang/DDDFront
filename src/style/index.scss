@@ -1,5 +1,3 @@
-$frame-middle-width: 1200px;
-
 @font-face {
   font-family: SCDream1;
   src: url(./fonts/SCDream1.otf) format("opentype");
@@ -71,6 +69,22 @@ $frame-middle-width: 1200px;
   src: url(./fonts/NotoSerifCJKkr-ExtraLight.otf) format("opentype");
 }
 
+$frame-medium-width: 900px;
+$frame-wide-width: 1200px;
+$break-point: 1366px;
+
+@mixin respond-to($media) {
+  @if $media == medium {
+    @media only screen and (max-width: $break-point) {
+      @content;
+    }
+  } @else if $media == wide {
+    @media only screen and (min-width: $break-point + 1) {
+      @content;
+    }
+  }
+}
+
 html,
 body,
 div {
@@ -87,8 +101,10 @@ body {
 }
 button,
 input {
+  font-family: NotoSansCJK-Regular;
   border: 0;
   padding: 0;
+  font: inherit;
 }
 
 h1,

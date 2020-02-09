@@ -8,7 +8,12 @@
   .first-flex {
     display: flex;
     height: 288px;
-    width: 900px;
+    @include respond-to(medium) {
+      width: $frame-medium-width;
+    }
+    @include respond-to(wide) {
+      width: $frame-wide-width;
+    }
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;

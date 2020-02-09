@@ -8,15 +8,21 @@ export interface IBlockImgProps {
   src: string;
   onClick?: (params?: any) => any;
   alt?: string;
+  draggable?: boolean;
 }
 
 export const BlockImg: React.FC<IBlockImgProps> = ({
   className,
   src,
   alt,
-  onClick
+  onClick,
+  draggable
 }) => (
   <div className={className} onClick={onClick}>
-    <img src={src} alt={alt ? alt : className} />
+    <img
+      src={src}
+      alt={alt ? alt : className}
+      draggable={draggable ? draggable : false}
+    />
   </div>
 );

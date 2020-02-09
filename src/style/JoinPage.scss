@@ -1,3 +1,5 @@
+@import "./index.scss";
+
 @keyframes fadein {
   from {
     opacity: 0;
@@ -83,6 +85,9 @@
     height: 118px;
     position: fixed;
     top: 130px;
+    @include respond-to(wide) {
+      top: 270px;
+    }
     opacity: 0;
     z-index: 2;
     transition-property: opacity top;
@@ -97,6 +102,9 @@
     &.INITIAL {
       opacity: 1;
       top: 172px;
+      @include respond-to(wide) {
+        top: 320px;
+      }
     }
   }
   .join-area {
@@ -139,6 +147,12 @@
         border-radius: 2px;
         font-size: 16px;
         top: 415px;
+        @include respond-to(medium) {
+          top: 415px;
+        }
+        @include respond-to(wide) {
+          top: 583px;
+        }
         opacity: 0.6;
         transition-property: opacity color;
         transition-duration: 1s;
@@ -163,6 +177,9 @@
         transition-duration: 1s;
         color: rgba(255, 255, 255, 0.6);
         top: 510px;
+        @include respond-to(wide) {
+          top: 679px;
+        }
       }
       &.STUDENT,
       &.TUTOR {

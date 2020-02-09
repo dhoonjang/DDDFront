@@ -8,8 +8,12 @@
   left: 0;
   .header-flex {
     display: flex;
-    width: calc(100vw - 60 * 2px);
     height: 60px;
+    width: calc(100vw - 60 * 2px);
+    @include respond-to(wide) {
+      height: 76px;
+      width: calc(100vw - 76 * 2px);
+    }
     margin: 0 auto;
     align-items: center;
     justify-content: space-between;

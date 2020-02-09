@@ -9,8 +9,18 @@ const makeBoardsDiv = (items: IBoard[], history: IHistory) => {
       RouteUrlMove(history, `/board/${item.id}`);
     };
     return (
-      <div key={index} onClick={moveCategoryItemPage} className="board">
+      <div
+        id={item.id}
+        key={index}
+        onClick={moveCategoryItemPage}
+        className="board"
+        draggable={true}
+        onDragStart={event => console.log(event.currentTarget.id)}
+        onDragOver={event => event.preventDefault()}
+        onDrop={event => console.log(event.currentTarget.id)}
+      >
         <BlockImg className="iboard" src={item.img} />
+        <BlockImg className="iboard-white" src={item.wimg} />
         <div className="name">{item.name}</div>
         <div className="discription">{item.discription}</div>
       </div>
