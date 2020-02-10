@@ -68,6 +68,7 @@ test/e2e:
   before_script:
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
+    - cypress install
   script:
     - yarn e2e:ci
   dependencies:
