@@ -77,7 +77,7 @@ deploy/proto:
   script:
     - aws s3 sync build s3://$S3_PROTO_BUCKET_NAME/ --acl public-read
   dependencies:
-    - build/proto
+    - build
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: on_success
