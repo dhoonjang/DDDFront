@@ -52,7 +52,7 @@ test/unit:
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
-    - yarn test
+    - yarn unit-test
   dependencies:
     - install
   rules:
@@ -64,14 +64,13 @@ test/unit:
 
 test/e2e:
   stage: quality
-  image: cypress/browsers:chrome69
+  image: cypress/base:10
   before_script:
     - apt-get update -qq && apt-get install
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
-    - yarn add --dev cypress sirv sirv-cli
   script:
-    - yarn e2e:ci
+    - yarn e2e-test
   dependencies:
     - install
     - build
