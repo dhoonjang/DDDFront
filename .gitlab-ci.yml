@@ -19,8 +19,6 @@ install:
     paths:
       - .yarn/
       - node_modules/
-  dependencies:
-    - install
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
@@ -39,6 +37,8 @@ build:
     paths:
       - build
     expire_in: 30 mins
+  dependencies:
+    - install
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
