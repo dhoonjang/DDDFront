@@ -25,4 +25,20 @@ describe("My First Test", function() {
       .first()
       .click();
   });
+
+  it("Category Item Page Action", function() {
+    cy.get(".CategoryItemPage > h2").click();
+  });
+
+  it("Mom Page Action", function() {
+    cy.get(".board")
+      .should("have.length", 6)
+      .first()
+      .click();
+  });
+
+  it("Board Page Action", function() {
+    cy.get("h2").contains("자기계발 컨텐츠");
+    cy.get(".iddakdae-logo").click();
+  });
 });
