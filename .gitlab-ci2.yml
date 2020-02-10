@@ -1,30 +1,35 @@
 image: node:latest
 
 stages:
-  - install
+  - test
   - build
-  - quality
   - deploy
 
-install:
-  stage: install
-  script:
+cache:
+  paths:
+    - node_modules/
+    - .yarn
+
+test:
+  stage: test
+  before_script:
     - apt-get update -qq && apt-get install
     - yarn config set cache-folder .yarn
     - yarn install
-  artifacts:
-    name: "artifacts"
-    untracked: true
-    expire_in: 30 mins
-    paths:
-      - .yarn/
-      - node_modules/
+    - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
+    - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
+  script:
+    - yarn test
   rules:
-    - when: always
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" ||  $CI_COMMIT_REF_NAME == "dev"
+      when: always
 
-build:
+build/product:
   stage: build
   before_script:
+    - apt-get update -qq && apt-get install
+    - yarn config set cache-folder .yarn
+    - yarn install
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
@@ -32,21 +37,26 @@ build:
   artifacts:
     paths:
       - build
-    expire_in: 30 mins
   rules:
-    - when: on_success
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      when: on_success
 
-test/unit:
-  stage: quality
+build/proto:
+  stage: build
   before_script:
+    - apt-get update -qq && apt-get install
+    - yarn config set cache-folder .yarn
+    - yarn install
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
-    - yarn test
-  dependencies:
-    - install
+    - yarn build
+  artifacts:
+    paths:
+      - build
   rules:
-    - when: always
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: on_success
 
 deploy/product:
   image: python:latest
@@ -61,11 +71,10 @@ deploy/product:
   after_script:
     - aws cloudfront create-invalidation --distribution-id=$CF_DISTRIBUTION_ID --paths '/*'
   dependencies:
-    - build
+    - build/product
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
       when: on_success
-    - when: never
 
 deploy/proto:
   image: python:latest
@@ -81,4 +90,3 @@ deploy/proto:
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: on_success
-    - when: never
