@@ -34,6 +34,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "e2e": "CYPRESS_baseUrl=http://localhost:3333 npx cypress run",
+    "e2e:ci": "npx start-server-and-test serve:e2e http://localhost:3333 e2e",
+    "serve:e2e": "node_modules/.bin/sirv build --quiet --single --port 3333",
     "aws-cache-clear": "aws cloudfront create-invalidation --distribution-id=E1UCZ1564QEQI0 --paths '/*'",
     "aws-deploy": "aws s3 sync build s3://ddakdae-client/",
     "aws-proto-deploy": "aws s3 sync build s3://ddakdae-client-proto/ --acl public-read",
@@ -52,6 +56,10 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^4.0.1",
+    "sirv": "^0.4.2",
+    "sirv-cli": "^0.4.5",
+    "start-server-and-test": "^1.10.8",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.1.0"

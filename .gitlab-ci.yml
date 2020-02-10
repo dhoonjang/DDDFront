@@ -33,12 +33,12 @@ build:
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
     - yarn build
+  dependencies:
+    - install
   artifacts:
     paths:
       - build
     expire_in: 30 mins
-  dependencies:
-    - install
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
@@ -55,6 +55,29 @@ test/unit:
     - yarn test
   dependencies:
     - install
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: always
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      when: on_success
+    - when: never
+
+test/e2e:
+  stage: quality
+  image: cypress/browsers:chrome69
+  before_script:
+    - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
+    - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
+  script:
+    - yarn e2e:ci
+  dependencies:
+    - install
+    - build
+  artifacts:
+    paths:
+      - cypress/screenshots
+      - cypress/videos
+    expire_in: 1 day
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
