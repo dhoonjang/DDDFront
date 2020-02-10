@@ -19,8 +19,14 @@ install:
     paths:
       - .yarn/
       - node_modules/
+  dependencies:
+    - install
   rules:
-    - when: always
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: always
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      when: always
+    - when: never
 
 build:
   stage: build
@@ -34,7 +40,11 @@ build:
       - build
     expire_in: 30 mins
   rules:
-    - when: on_success
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: always
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      when: on_success
+    - when: never
 
 test/unit:
   stage: quality
@@ -46,7 +56,11 @@ test/unit:
   dependencies:
     - install
   rules:
-    - when: always
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: always
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      when: on_success
+    - when: never
 
 deploy/product:
   image: python:latest
@@ -79,6 +93,8 @@ deploy/proto:
   dependencies:
     - build
   rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+      when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: on_success
     - when: never
