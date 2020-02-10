@@ -6,6 +6,9 @@ stages:
   - quality
   - deploy
 
+variables:
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+
 install:
   stage: install
   script:
@@ -19,7 +22,7 @@ install:
     paths:
       - .yarn/
       - node_modules/
-      - /root/.cache/Cypress
+      - cache/Cypress
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
@@ -29,13 +32,13 @@ install:
 
 build:
   stage: build
+  dependencies:
+    - install
   before_script:
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
     - yarn build
-  dependencies:
-    - install
   artifacts:
     paths:
       - build
@@ -49,13 +52,13 @@ build:
 
 test/unit:
   stage: quality
+  dependencies:
+    - install
   before_script:
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
     - yarn unit-test
-  dependencies:
-    - install
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
@@ -64,17 +67,16 @@ test/unit:
     - when: never
 
 test/e2e:
-  stage: quality
   image: cypress/base:10
+  stage: quality
+  dependencies:
+    - install
+    - build
   before_script:
-    - apt-get update -qq && apt-get install
     - export REACT_APP_KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID
     - export REACT_APP_KAKAO_OAUTH_URL=$KAKAO_OAUTH_URL
   script:
     - yarn e2e-test
-  dependencies:
-    - install
-    - build
   artifacts:
     paths:
       - cypress/screenshots
@@ -90,6 +92,8 @@ test/e2e:
 deploy/product:
   image: python:latest
   stage: deploy
+  dependencies:
+    - build
   variables:
     S3_BUCKET_NAME: ddakdae-client
     CF_DISTRIBUTION_ID: E1UCZ1564QEQI0
@@ -99,8 +103,6 @@ deploy/product:
     - aws s3 sync build s3://$S3_BUCKET_NAME/
   after_script:
     - aws cloudfront create-invalidation --distribution-id=$CF_DISTRIBUTION_ID --paths '/*'
-  dependencies:
-    - build
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
       when: on_success
@@ -109,14 +111,14 @@ deploy/product:
 deploy/proto:
   image: python:latest
   stage: deploy
+  dependencies:
+    - build
   variables:
     S3_PROTO_BUCKET_NAME: ddakdae-client-proto
   before_script:
     - pip install awscli
   script:
     - aws s3 sync build s3://$S3_PROTO_BUCKET_NAME/ --acl public-read
-  dependencies:
-    - build
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
       when: never
